@@ -20,9 +20,9 @@ We brought back the iconic GitHub green squares! Integrated a massive, full-widt
 
 ### ⚔️ 1v1 Developer Battles (Mortal Kombat Mode)
 Want to settle a score? Our new **Developer Kombat** mode pits two developers against each other in a ruthless AI analysis of their codebase, complexity, and commit habits. 
-* Split-screen VS layout
-* Power Level calculations
-* A brutal "Fatality" roast from the AI to finish off the loser!
-
+* Split-screen VS layout with glowing particle effects
+* Power Level calculations with dynamic counters
+* A brutal, highly-aggressive "Fatality" roast from the AI to finish off the loser!
+* Crash-proof architecture ensuring massive GitHub profiles are minified properly before judging!
 ---
 *Built with Next.js, FastAPI, Supabase, and Groq.*
