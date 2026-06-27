@@ -7,7 +7,7 @@ GitScope AI analyzes a developer's public repositories, commit history, and codi
 ## ✨ Features
 
 - **AI Professional Assessment:** Get an instant evaluation of a developer's "Hire Status", core technical strengths, and areas for growth.
-- **Developer DNA Profiling:** Automatically categorize developers into archetypes (e.g., "AI Engineer", "Full-Stack Architect") based on their actual code.
+- **Tabbed Dashboard Interface:** Clean, separated views for "Overview" and "AI Assessment" so the UI never feels cluttered.
 - **Skill Matrix Radar Chart:** A dynamic 5-axis visualization tracking:
   - Complexity
   - Velocity
