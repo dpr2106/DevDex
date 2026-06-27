@@ -18,6 +18,7 @@ GitScope AI analyzes a developer's public repositories, commit history, and codi
 - **AI-Generated Badges:** Custom AI-assigned badges based on actual coding behaviors.
 - **Language Distribution:** Dynamic progress bars visualizing language expertise.
 - **Code Quality Stats:** Quick stats on stars and forks generated directly from GitHub data.
+- **Global AI Leaderboard:** A dynamic Top 100 ranking of all analyzed developers based on their Impact Score.
 - **Premium Glassmorphism UI:** A beautiful, animated, and highly polished dashboard built with modern web design principles.
 
 ## 🏗️ Project Structure
