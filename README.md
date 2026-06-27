@@ -18,5 +18,11 @@ Why read source code when you can just make fun of it? GitScope AI now intercept
 ### 🟩 Classic Contribution Heatmap
 We brought back the iconic GitHub green squares! Integrated a massive, full-width Contribution Graph at the bottom of the dashboard that perfectly mimics GitHub's native dark-mode heatmap. 
 
+### ⚔️ 1v1 Developer Battles (Mortal Kombat Mode)
+Want to settle a score? Our new **Developer Kombat** mode pits two developers against each other in a ruthless AI analysis of their codebase, complexity, and commit habits. 
+* Split-screen VS layout
+* Power Level calculations
+* A brutal "Fatality" roast from the AI to finish off the loser!
+
 ---
 *Built with Next.js, FastAPI, Supabase, and Groq.*
