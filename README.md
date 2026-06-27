@@ -1,33 +1,22 @@
-# GitScope AI 🚀
+# 🧬 GitScope AI
 
-An AI-powered GitHub intelligence platform that goes beyond simple statistics to understand a developer's habits, project quality, and technical growth. 
+GitScope AI has evolved from a simple global leaderboard into a **Steroid-Injected Developer Profiling Tool**. Enter any GitHub username and instantly generate a deep architectural profile and recruiter assessment.
 
-GitScope AI analyzes a developer's public repositories, commit history, and coding patterns to generate a comprehensive, professional assessment.
+## 🚀 Latest Updates (v2.0)
 
-## ✨ Features
+We just dropped a massive update entirely transforming the user experience!
 
-- **AI Professional Assessment:** Get an instant evaluation of a developer's "Hire Status", core technical strengths, and areas for growth.
-- **Tabbed Dashboard Interface:** Clean, separated views for "Overview" and "AI Assessment" so the UI never feels cluttered.
-- **Skill Matrix Radar Chart:** A dynamic 5-axis visualization tracking:
-  - Complexity
-  - Velocity
-  - Consistency
-  - Impact
-  - Clean Code
-- **Key Developer Highlights:** Discover top languages and "Crown Jewel" repositories at a glance.
-- **AI-Generated Badges:** Custom AI-assigned badges based on actual coding behaviors.
-- **Language Distribution:** Dynamic progress bars visualizing language expertise.
-- **Code Quality Stats:** Quick stats on stars and forks generated directly from GitHub data.
-- **Global AI Leaderboard:** A dynamic Top 100 ranking of all analyzed developers based on their Impact Score.
-- **Premium Glassmorphism UI:** A beautiful, animated, and highly polished dashboard built with modern web design principles.
+### 🍱 The "Color Bento Box" Dashboard
+We ripped out the old tabbed interface and neon purple glows. Welcome to the sleek, ultra-modern **Color Bento Box**. Eight distinct, beautifully glassmorphic cards seamlessly displaying a developer's entire profile at a glance.
+* Zero clicks needed.
+* Ambient blurred orbs.
+* Crystal clear data presentation.
 
-## 🏗️ Project Structure
-- `/frontend` - Next.js App (React, Tailwind CSS, Framer Motion, Recharts)
-- `/backend` - FastAPI Server (Python, Groq AI Integration)
-- `/database` - Supabase schemas & Auth
+### 🔥 AI Commit Roaster
+Why read source code when you can just make fun of it? GitScope AI now intercepts a developer's recent `PushEvents`, reads their raw commit messages, and uses Gemini AI to generate a brutal, hilarious roast of their coding habits. ("Why is every commit named 'wip'?!")
 
-## 💻 Tech Stack
-- **Frontend:** Next.js, Tailwind CSS, Framer Motion, Recharts, Lucide React
-- **Backend:** FastAPI, Python, Uvicorn
-- **AI:** Groq API (Llama 3.1 8B Instant)
-- **Database & Auth:** Supabase
+### 🟩 Classic Contribution Heatmap
+We brought back the iconic GitHub green squares! Integrated a massive, full-width Contribution Graph at the bottom of the dashboard that perfectly mimics GitHub's native dark-mode heatmap. 
+
+---
+*Built with Next.js, FastAPI, Supabase, and Groq.*
