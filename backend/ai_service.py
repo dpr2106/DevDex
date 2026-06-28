@@ -209,16 +209,63 @@ Otherwise, if valid:
 async def enhance_resume_text(raw_text: str, section: str) -> str:
     """Enhances raw text into professional resume bullet points."""
     try:
-        chat_completion = await client.chat.completions.create(
+        completion = await client.chat.completions.create(
             messages=[
-                {"role": "system", "content": ENHANCE_PROMPT + f"\nContext: This is for the {section} section of a developer's resume."},
-                {"role": "user", "content": raw_text}
+                {"role": "system", "content": ENHANCE_PROMPT},
+                {"role": "user", "content": f"Section: {section}\nText to enhance: {raw_text}"}
             ],
             model="llama-3.1-8b-instant",
             temperature=0.7,
-            max_tokens=500
+            max_tokens=300
         )
-        return chat_completion.choices[0].message.content.strip()
+        return completion.choices[0].message.content.strip()
     except Exception as e:
-        print(f"Error enhancing text with Groq: {e}")
+        print(f"Error enhancing text: {e}")
         return raw_text
+
+COVER_LETTER_PROMPT = """You are an expert technical career coach and copywriter.
+Write a professional, compelling cover letter for the user.
+The user is applying for the role of '{role}' at the company '{company}'.
+You will be provided with a JSON summary of their GitHub profile.
+Use their top languages, projects, and general stats to highlight their relevant technical skills and passion for software development.
+Keep the cover letter to 3-4 concise paragraphs.
+Do not include placeholder addresses at the top. Just start with 'Dear Hiring Manager,' or 'Dear [Company] Team,'.
+Sign off with the user's name if available in the profile, otherwise just 'Best regards,'."""
+
+async def generate_cover_letter(github_data: Dict[str, Any], role: str, company: str) -> str:
+    """Generates a professional cover letter using the user's GitHub data."""
+    # Minify data for the prompt
+    mini_data = {
+        "profile": {
+            "name": github_data.get("raw_profile", {}).get("name"),
+            "bio": github_data.get("raw_profile", {}).get("bio"),
+            "public_repos": github_data.get("raw_profile", {}).get("public_repos"),
+        },
+        "stats": github_data.get("stats", {}),
+        "repos": [
+            {
+                "name": r.get("name"), 
+                "desc": r.get("description"), 
+                "lang": r.get("language")
+            }
+            for r in github_data.get("raw_repos", [])[:3]
+        ]
+    }
+    
+    user_prompt = json.dumps(mini_data, indent=2)
+    system_prompt = COVER_LETTER_PROMPT.replace("{role}", role).replace("{company}", company)
+    
+    try:
+        completion = await client.chat.completions.create(
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt}
+            ],
+            model="llama-3.1-8b-instant",
+            temperature=0.7,
+            max_tokens=800
+        )
+        return completion.choices[0].message.content.strip()
+    except Exception as e:
+        print(f"Error generating cover letter: {e}")
+        return "Could not generate cover letter at this time. Please try again later."

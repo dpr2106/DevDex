@@ -5,7 +5,8 @@ from supabase import create_client, Client
 from dotenv import load_dotenv
 
 from github_service import gather_github_data
-from ai_service import generate_developer_insights, enhance_resume_text
+from github_service import gather_github_data
+from ai_service import generate_developer_insights, enhance_resume_text, generate_cover_letter
 from pydantic import BaseModel
 
 load_dotenv()
@@ -171,3 +172,32 @@ async def enhance_text_endpoint(request: EnhanceRequest):
     
     enhanced = await enhance_resume_text(request.text, request.section)
     return {"enhanced_text": enhanced}
+
+class CoverLetterRequest(BaseModel):
+    username: str
+    target_role: str
+    company_name: str
+
+@app.post("/api/cover-letter")
+async def generate_cover_letter_endpoint(request: CoverLetterRequest):
+    """Generates a cover letter based on user's GitHub data."""
+    try:
+        # Check cache first for github data
+        response = supabase.table("analyses").select("*").eq("github_username", request.username.lower()).execute()
+        if response.data and len(response.data) > 0:
+            cached_data = response.data[0]
+            # Convert cached format back to standard github_data format
+            github_data = {
+                "raw_profile": cached_data.get("raw_profile", {}),
+                "raw_repos": cached_data.get("raw_repos", []),
+                "stats": cached_data.get("developer_wrapped", {}).get("raw_stats", {})
+            }
+        else:
+            # If not in cache, fetch it live
+            github_data = await gather_github_data(request.username)
+            
+        cover_letter = await generate_cover_letter(github_data, request.target_role, request.company_name)
+        return {"cover_letter": cover_letter}
+    except Exception as e:
+        print(f"Error in cover letter endpoint: {e}")
+        raise HTTPException(status_code=500, detail="Failed to generate cover letter.")

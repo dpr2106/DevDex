@@ -44,6 +44,36 @@ export default function ResumePage() {
     skills: ""
   });
 
+  const [showCoverLetter, setShowCoverLetter] = useState(false);
+  const [coverLetterCompany, setCoverLetterCompany] = useState("");
+  const [coverLetterTargetRole, setCoverLetterTargetRole] = useState("");
+  const [coverLetterText, setCoverLetterText] = useState("");
+  const [generatingCoverLetter, setGeneratingCoverLetter] = useState(false);
+
+  const handleGenerateCoverLetter = async () => {
+    if (!coverLetterCompany || !coverLetterTargetRole) return;
+    setGeneratingCoverLetter(true);
+    try {
+      const response = await fetch("http://localhost:8000/api/cover-letter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username,
+          target_role: coverLetterTargetRole,
+          company_name: coverLetterCompany
+        })
+      });
+      if (response.ok) {
+        const result = await response.json();
+        setCoverLetterText(result.cover_letter);
+      }
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setGeneratingCoverLetter(false);
+    }
+  };
+
   const handleEnhance = async (text: string, section: string, setFunc: (val: string) => void, setLoad: (val: boolean) => void) => {
     if (!text) return;
     setLoad(true);
@@ -152,6 +182,16 @@ export default function ResumePage() {
           </button>
           
           <button 
+            onClick={() => {
+               setCoverLetterTargetRole(builderData.role || "Software Engineer");
+               setShowCoverLetter(true);
+            }}
+            className="w-full py-2 bg-indigo-100 hover:bg-indigo-200 text-indigo-700 font-bold rounded-xl text-sm transition-colors flex justify-center items-center gap-2"
+          >
+            ✉️ Write Cover Letter
+          </button>
+          
+          <button 
             onClick={() => window.print()}
             className="mt-2 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-black py-3 px-6 rounded-xl shadow-lg flex items-center justify-center gap-2 transition-all hover:scale-[1.02]"
           >
@@ -234,6 +274,56 @@ export default function ResumePage() {
                 <button onClick={() => setShowBuilder(false)} className="px-6 py-2.5 bg-purple-600 hover:bg-purple-700 text-white font-black rounded-xl shadow-lg transition-all">Save & Preview</button>
               </div>
             </div>
+          </div>
+        </div>
+      )}
+
+      {showCoverLetter && (
+        <div className="fixed inset-0 bg-black/60 z-[100] flex items-center justify-center p-4 backdrop-blur-sm print:hidden">
+          <div className="bg-white rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl p-6 border border-neutral-200 flex flex-col">
+            <div className="flex justify-between items-center mb-6 border-b border-neutral-100 pb-4 shrink-0">
+              <h2 className="text-2xl font-black text-neutral-900">✉️ AI Cover Letter</h2>
+              <button onClick={() => setShowCoverLetter(false)} className="text-neutral-500 hover:text-neutral-900 font-bold p-2 bg-neutral-100 rounded-lg transition-colors">Close</button>
+            </div>
+            
+            <div className="space-y-4 shrink-0">
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider block mb-1">Company Name</label>
+                  <input type="text" value={coverLetterCompany} onChange={e => setCoverLetterCompany(e.target.value)} placeholder="e.g. OpenAI" className="w-full p-2.5 bg-neutral-50 border border-neutral-200 rounded-xl text-sm text-neutral-900 focus:ring-2 focus:ring-indigo-500 outline-none" />
+                </div>
+                <div>
+                  <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider block mb-1">Target Role</label>
+                  <input type="text" value={coverLetterTargetRole} onChange={e => setCoverLetterTargetRole(e.target.value)} placeholder="e.g. Frontend Engineer" className="w-full p-2.5 bg-neutral-50 border border-neutral-200 rounded-xl text-sm text-neutral-900 focus:ring-2 focus:ring-indigo-500 outline-none" />
+                </div>
+              </div>
+              <button 
+                onClick={handleGenerateCoverLetter} 
+                disabled={generatingCoverLetter || !coverLetterCompany || !coverLetterTargetRole}
+                className="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-black rounded-xl shadow-lg transition-all disabled:opacity-50 flex justify-center items-center gap-2"
+              >
+                {generatingCoverLetter ? <Loader2 className="w-5 h-5 animate-spin" /> : "✨"} Generate Cover Letter
+              </button>
+            </div>
+            
+            {coverLetterText && (
+              <div className="mt-6 flex-1 flex flex-col min-h-0">
+                <div className="flex justify-between items-end mb-2">
+                  <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider block">Generated Cover Letter</label>
+                  <button 
+                    onClick={() => navigator.clipboard.writeText(coverLetterText)}
+                    className="text-xs font-bold text-indigo-600 hover:text-indigo-700 flex items-center gap-1"
+                  >
+                    📋 Copy to Clipboard
+                  </button>
+                </div>
+                <textarea 
+                  value={coverLetterText} 
+                  onChange={e => setCoverLetterText(e.target.value)} 
+                  className="w-full flex-1 min-h-[250px] p-4 bg-neutral-50 border border-neutral-200 rounded-xl text-sm text-neutral-900 resize-y outline-none focus:ring-2 focus:ring-indigo-500" 
+                />
+              </div>
+            )}
           </div>
         </div>
       )}
