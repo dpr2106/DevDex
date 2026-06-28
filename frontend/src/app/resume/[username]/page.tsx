@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
+import Link from "next/link";
 import { Loader2, Printer, Code2, Award, Briefcase, FileCode2, Terminal, User, Link as LinkIcon, Activity } from "lucide-react";
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, ResponsiveContainer } from "recharts";
 import { GitHubCalendar } from "react-github-calendar";
@@ -230,6 +231,10 @@ export default function ResumePage() {
           >
             <Printer className="w-5 h-5" /> Print to PDF
           </button>
+
+          <Link href="/" className="mt-2 py-2 w-full flex items-center justify-center gap-2 text-neutral-500 hover:text-neutral-900 bg-neutral-100 hover:bg-neutral-200 font-bold rounded-xl text-sm transition-colors">
+            🏠 Back to Dashboard
+          </Link>
         </div>
       </div>
 
