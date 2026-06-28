@@ -337,14 +337,17 @@ export default function ResumePage() {
 
         {resumeMode === 'traditional' ? (
           <div className="font-sans text-neutral-900 mt-4 max-w-[190mm] mx-auto">
-            <header className="border-b-[3px] border-neutral-900 pb-5 mb-6 flex flex-col items-center text-center">
+            <header className="relative border-b-[3px] border-neutral-900 pb-5 mb-6 flex flex-col items-center text-center">
               <h1 className="text-4xl font-serif font-black text-neutral-900 uppercase tracking-wide">{builderData.fullName}</h1>
-              <div className="text-neutral-700 mt-2 font-medium text-sm flex gap-3 flex-wrap justify-center">
+              <div className="text-neutral-700 mt-2 font-medium text-sm flex gap-3 flex-wrap justify-center max-w-[85%] mx-auto">
                 <span>{builderData.role}</span>
                 {builderData.email && <><span className="text-neutral-300">•</span><a href={`mailto:${builderData.email}`} className="hover:underline">{builderData.email}</a></>}
                 {builderData.phone && <><span className="text-neutral-300">•</span><a href={`tel:${builderData.phone}`} className="hover:underline">{builderData.phone}</a></>}
                 {builderData.linkedIn && <><span className="text-neutral-300">•</span><a href={builderData.linkedIn.startsWith('http') ? builderData.linkedIn : `https://${builderData.linkedIn}`} target="_blank" rel="noopener noreferrer" className="hover:underline">{builderData.linkedIn}</a></>}
                 <><span className="text-neutral-300">•</span><a href={`https://github.com/${username}`} target="_blank" rel="noopener noreferrer" className="hover:underline">github.com/{username}</a></>
+              </div>
+              <div className="absolute top-0 right-0 border border-neutral-200 p-1 bg-white">
+                <QRCode value={`https://github.com/${username}`} size={56} bgColor="#ffffff" fgColor="#171717" />
               </div>
             </header>
 
