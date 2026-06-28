@@ -24,5 +24,12 @@ Want to settle a score? Our new **Developer Kombat** mode pits two developers ag
 * Power Level calculations with dynamic counters
 * A brutal, highly-aggressive "Fatality" roast from the AI to finish off the loser!
 * Crash-proof architecture ensuring massive GitHub profiles are minified properly before judging!
+
+### 📄 AI Resume Generator (Export to PDF)
+Turn your GitHub profile into a sleek, professional 1-page CV instantly!
+* Clean A4 Layout optimized for `@media print`.
+* Dynamic visual charts including a **Developer DNA Radar Chart** and **GitHub Commit Heatmap**.
+* Highlight your AI-determined core strengths, notable projects, and tech stack perfectly for recruiters.
+
 ---
 *Built with Next.js, FastAPI, Supabase, and Groq.*
