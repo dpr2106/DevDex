@@ -413,7 +413,7 @@ Analyze their professional evolution, focusing on how their tech stack, architec
 
 You MUST respond with a valid JSON object strictly matching this schema:
 {
-  "growth_summary": "string (A professional 2-paragraph summary of their entire career trajectory, written in the FIRST-PERSON 'I started out doing X... today I build Y...')",
+  "growth_summary": "string (A professional 2-paragraph summary of their entire career trajectory, written in the THIRD-PERSON e.g. 'This developer started out doing X... today they build Y...')",
   "early_days_stack": ["string (e.g. 'HTML', 'Vanilla JS', 'PHP')"],
   "current_stack": ["string (e.g. 'TypeScript', 'Next.js', 'Go')"],
   "milestones": [
