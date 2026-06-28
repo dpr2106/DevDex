@@ -10,12 +10,12 @@ GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 client = AsyncGroq(api_key=GROQ_API_KEY)
 
 SYSTEM_PROMPT = """You are GitScope AI, an elite software engineering career coach, senior technical recruiter, and highly perceptive developer analyst.
-Your job is to analyze the provided raw GitHub profile and repository data and output a deeply insightful, slightly Gen Z, highly accurate JSON response.
+Your job is to analyze the provided raw GitHub profile and repository data and output a deeply insightful, highly accurate JSON response.
 
 You MUST respond with a valid JSON object strictly matching this schema:
 {
   "dna_type": "string (e.g., 'Builder', 'Hacker', 'AI Engineer', 'Open Source Contributor')",
-  "ai_summary": "string (1 paragraph summarizing their habits and ownership. CRITICAL: MUST BE WRITTEN IN THE FIRST-PERSON PERSPECTIVE, as if the developer is writing it about themselves. Use 'I', 'My', 'I have built', etc. Professional but slightly Gen Z/modern tone)",
+  "ai_summary": "string (1 paragraph summarizing their habits and ownership. CRITICAL: MUST BE WRITTEN IN THE FIRST-PERSON PERSPECTIVE, as if the developer is writing it about themselves. Use 'I', 'My', 'I have built', etc. Professional and engaging tone)",
   "consistency_analysis": {
     "rhythm": "string (e.g., 'Incremental Developer', 'Weekend Warrior', 'Hackathon Sprinter')",
     "description": "string (Short description, also written in FIRST-PERSON 'I tend to...')"
@@ -44,9 +44,7 @@ You MUST respond with a valid JSON object strictly matching this schema:
     "biggest_strength": "string",
     "coding_demon_level": "integer (1-100)",
     "badges": ["string (generate exactly 3 creative, short badges like 'Night Owl', '10x Shipper', 'Architect' based on their data)"]
-  },
-  "roast": "string (A playful, respectful, Gen Z roast of their profile/habits)",
-  "commit_roast": "string (A brutal, hilarious roast specifically targeting the quality of their commit messages from the events data, e.g. 'why is every commit WIP?')"
+  }
 }
 """
 
@@ -70,20 +68,9 @@ async def generate_developer_insights(github_data: Dict[str, Any]) -> Dict[str, 
                 "stars": r.get("stargazers_count")
             }
             for r in github_data.get("raw_repos", [])[:5]
-        ],
-        "commits": []
+        ]
     }
     
-    # Extract commit messages for the roast
-    for event in github_data.get("raw_events", []):
-        if event.get("type") == "PushEvent":
-            for commit in event.get("payload", {}).get("commits", []):
-                mini_data["commits"].append(commit.get("message"))
-                if len(mini_data["commits"]) >= 15:
-                    break
-        if len(mini_data["commits"]) >= 15:
-            break
-
     user_prompt = json.dumps(mini_data, indent=2)
     
     try:

@@ -320,19 +320,6 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Box 9: Commit Roast Box (Span 4) - Fiery Red Theme */}
-              <div className="md:col-span-4 bg-gradient-to-br from-red-500/10 to-transparent backdrop-blur-md border border-red-500/20 rounded-3xl p-8 hover:border-red-500/40 hover:shadow-[0_0_30px_rgba(239,68,68,0.15)] transition-all flex flex-col relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-red-500/20 blur-[50px] pointer-events-none" />
-                <p className="text-red-400 text-xs uppercase tracking-widest mb-4 flex items-center gap-2 relative z-10">
-                  <Flame className="w-4 h-4" /> AI Commit Roast
-                </p>
-                <div className="flex-1 flex items-center relative z-10">
-                  <p className="text-red-200/90 text-sm leading-relaxed italic font-medium">
-                    "{data.commit_roast || "You haven't committed enough recently for me to roast you. How embarrassing."}"
-                  </p>
-                </div>
-              </div>
-
               {/* Box 10: GitHub Contribution Heatmap (Span 12) - Classic Green Theme */}
               <div className="md:col-span-12 bg-gradient-to-br from-emerald-500/5 to-transparent backdrop-blur-md border border-emerald-500/20 rounded-3xl p-8 hover:border-emerald-500/40 hover:shadow-[0_0_30px_rgba(16,185,129,0.15)] transition-all flex flex-col">
                 <p className="text-emerald-400 text-xs uppercase tracking-widest mb-6 flex items-center gap-2">

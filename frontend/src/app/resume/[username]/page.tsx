@@ -606,19 +606,7 @@ export default function ResumePage() {
               </div>
             </section>
             
-            {data.commit_roast && (
-              <section className="mt-8 pt-8 border-t border-purple-500/20">
-                <h2 className="flex items-center gap-2 text-lg font-black pb-2 mb-4 text-pink-500">
-                  <Terminal className="w-5 h-5" /> AI Roast
-                </h2>
-                <div className="bg-pink-500/10 border border-pink-500/30 p-4 rounded-xl relative overflow-hidden">
-                  <div className="absolute top-0 right-0 w-20 h-20 bg-pink-500/20 blur-xl" />
-                  <p className="text-xs text-pink-200 leading-relaxed relative z-10 italic">
-                    "{data.commit_roast}"
-                  </p>
-                </div>
-              </section>
-            )}
+
           </div>
         </main>
         </>

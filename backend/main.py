@@ -56,8 +56,8 @@ async def analyze_github_user(username: str, force_refresh: bool = False):
                     github_data = await gather_github_data(username)
                     cached_data["raw_profile"] = github_data.get("raw_profile", {})
                     cached_data["raw_repos"] = github_data.get("raw_repos", [])
-                    cached_data["raw_events"] = github_data.get("raw_events", [])
-                    cached_data["commit_roast"] = cached_data.get("developer_wrapped", {}).get("commit_roast", "")
+                    # Merge developer wrapped data securely
+                    cached_data["developer_wrapped"] = cached_data.get("developer_wrapped", {})
                 except Exception as e:
                     print(f"Failed to fetch live github data for cache: {e}")
                 return cached_data
@@ -81,7 +81,6 @@ async def analyze_github_user(username: str, force_refresh: bool = False):
         # 4. Prepare data for database insertion
         developer_wrapped = ai_insights.get("developer_wrapped", {})
         developer_wrapped["raw_stats"] = github_data.get("stats", {})
-        developer_wrapped["commit_roast"] = ai_insights.get("commit_roast", "No roast generated.")
 
         db_payload = {
             "github_username": username.lower(),
@@ -102,13 +101,11 @@ async def analyze_github_user(username: str, force_refresh: bool = False):
             save_response = supabase.table("analyses").upsert(db_payload, on_conflict="github_username").execute()
             if save_response.data and len(save_response.data) > 0:
                 ret = save_response.data[0]
-                ret["commit_roast"] = ret.get("developer_wrapped", {}).get("commit_roast", "")
                 return ret
         except Exception as db_error:
             print(f"Supabase cache save failed (likely RLS policy): {db_error}")
             
         # Return the payload directly if DB save fails
-        db_payload["commit_roast"] = developer_wrapped.get("commit_roast", "")
         return db_payload
 
     except HTTPException:
