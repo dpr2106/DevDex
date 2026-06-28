@@ -406,3 +406,77 @@ async def generate_repo_health_insights(repo_data: Dict[str, Any]) -> Dict[str, 
             "tech_debt_warning": "N/A",
             "maintainability_index": {"score": 0, "reasoning": "Error"}
         }
+
+TRAJECTORY_PROMPT = """You are GitScope AI, a Senior Technical Career Coach.
+You will receive raw JSON data about a developer's oldest and newest repositories on GitHub.
+Analyze their professional evolution, focusing on how their tech stack, architecture, and coding patterns have changed.
+
+You MUST respond with a valid JSON object strictly matching this schema:
+{
+  "growth_summary": "string (A professional 2-paragraph summary of their entire career trajectory, written in the FIRST-PERSON 'I started out doing X... today I build Y...')",
+  "early_days_stack": ["string (e.g. 'HTML', 'Vanilla JS', 'PHP')"],
+  "current_stack": ["string (e.g. 'TypeScript', 'Next.js', 'Go')"],
+  "milestones": [
+    {
+      "year": "string (e.g. '2019')",
+      "title": "string (e.g. 'The Frontend Awakening')",
+      "description": "string (1 sentence about what they learned or built that year)"
+    }
+  ]
+}
+"""
+
+async def generate_career_trajectory(github_data: Dict[str, Any]) -> Dict[str, Any]:
+    """Generates career trajectory insights based on repo history."""
+    
+    repos = github_data.get("raw_repos", [])
+    if not repos:
+        raise ValueError("No repositories found to analyze trajectory.")
+        
+    # Sort repos by created_at
+    sorted_repos = sorted(repos, key=lambda x: x.get("created_at", ""))
+    
+    # Take 3 oldest and 3 newest
+    oldest = sorted_repos[:3]
+    newest = sorted_repos[-3:] if len(sorted_repos) > 3 else sorted_repos
+    
+    mini_data = {
+        "username": github_data.get("raw_profile", {}).get("login"),
+        "oldest_repos": [
+            {
+                "name": r.get("name"),
+                "language": r.get("language"),
+                "created_at": r.get("created_at")
+            } for r in oldest
+        ],
+        "newest_repos": [
+            {
+                "name": r.get("name"),
+                "language": r.get("language"),
+                "created_at": r.get("created_at")
+            } for r in newest
+        ]
+    }
+    
+    user_prompt = json.dumps(mini_data, indent=2)
+    
+    try:
+        chat_completion = await client.chat.completions.create(
+            messages=[
+                {"role": "system", "content": TRAJECTORY_PROMPT},
+                {"role": "user", "content": user_prompt}
+            ],
+            model="llama-3.1-8b-instant",
+            temperature=0.7,
+            max_tokens=1500,
+            response_format={"type": "json_object"}
+        )
+        return json.loads(chat_completion.choices[0].message.content)
+    except Exception as e:
+        print(f"Error generating trajectory insights: {e}")
+        return {
+            "growth_summary": "Failed to analyze career trajectory due to an API error.",
+            "early_days_stack": [],
+            "current_stack": [],
+            "milestones": []
+        }
