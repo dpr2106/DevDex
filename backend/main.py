@@ -213,3 +213,43 @@ async def generate_ats_score_endpoint(request: ATSRequest):
     except Exception as e:
         print(f"Error in ATS endpoint: {e}")
         raise HTTPException(status_code=500, detail="Failed to calculate ATS score.")
+
+class SquadRequest(BaseModel):
+    usernames: list[str]
+
+@app.post("/api/squad")
+async def analyze_squad_endpoint(request: SquadRequest):
+    """Analyzes a team of developers for synergy."""
+    if not request.usernames or len(request.usernames) == 0:
+        raise HTTPException(status_code=400, detail="At least one username is required.")
+    
+    if len(request.usernames) > 5:
+        raise HTTPException(status_code=400, detail="Maximum 5 users allowed for squad analysis.")
+        
+    try:
+        users_data = []
+        for uname in request.usernames:
+            # Check cache first
+            response = supabase.table("analyses").select("*").eq("github_username", uname.lower()).execute()
+            if response.data and len(response.data) > 0:
+                cached_data = response.data[0]
+                users_data.append({
+                    "raw_profile": cached_data.get("raw_profile", {}),
+                    "raw_repos": cached_data.get("raw_repos", []),
+                    "stats": cached_data.get("developer_wrapped", {}).get("raw_stats", {})
+                })
+            else:
+                # Fetch live if missing
+                github_data = await gather_github_data(uname)
+                users_data.append(github_data)
+
+        from ai_service import generate_squad_insights
+        squad_result = await generate_squad_insights(users_data)
+        
+        return {
+            "roster": [u.get("raw_profile", {}).get("username") or u.get("raw_profile", {}).get("login") for u in users_data],
+            "insights": squad_result
+        }
+    except Exception as e:
+        print(f"Error in Squad endpoint: {e}")
+        raise HTTPException(status_code=500, detail="Failed to generate squad insights.")

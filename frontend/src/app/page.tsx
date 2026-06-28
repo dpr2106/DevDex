@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Search, Activity, Code, Star, Trophy, GitCommit, Terminal, Target, LineChart, BrainCircuit, BarChart3, ChevronRight, Flame, Swords } from "lucide-react";
+import { Search, Activity, Code, Star, Trophy, GitCommit, Terminal, Target, LineChart, BrainCircuit, BarChart3, ChevronRight, Flame, Swords, Users } from "lucide-react";
 import { motion, AnimatePresence, useMotionValue, useSpring } from "framer-motion";
 import Link from "next/link";
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, Tooltip, ResponsiveContainer } from "recharts";
@@ -116,6 +116,9 @@ export default function Home() {
               </Link>
             </>
           )}
+          <Link href="/squad" className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-500 hover:from-blue-500 hover:to-indigo-400 text-white font-black uppercase tracking-widest rounded-xl px-4 py-2 transition-all text-xs shadow-[0_0_15px_rgba(59,130,246,0.4)] hover:shadow-[0_0_25px_rgba(59,130,246,0.6)] transform hover:scale-105">
+            <Users className="w-4 h-4" /> Squad Mode
+          </Link>
           <Link href="/battle" className="flex items-center gap-2 bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-500 hover:to-orange-400 text-white font-black uppercase tracking-widest rounded-xl px-4 py-2 transition-all text-xs shadow-[0_0_15px_rgba(239,68,68,0.4)] hover:shadow-[0_0_25px_rgba(239,68,68,0.6)] transform hover:scale-105">
             <Swords className="w-4 h-4" /> Battle Mode
           </Link>

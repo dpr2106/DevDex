@@ -286,3 +286,59 @@ async def check_ats_score(resume_text: str, target_role: str) -> Dict[str, Any]:
     except Exception as e:
         print(f"Error generating ATS score: {e}")
         return {"score": 0, "feedback": "Failed to analyze resume.", "missing_keywords": []}
+
+SQUAD_PROMPT = """You are GitScope AI, an elite Engineering Manager and Technical Strategist.
+You will be provided with an array of GitHub developer profiles.
+Analyze this group as a potential engineering team (a "Squad").
+Determine their collective strengths, missing technical skills, and how they complement each other.
+
+You MUST respond with a valid JSON object strictly matching this schema:
+{
+  "team_name": "string (A creative, cool startup name for this team based on their combined skills)",
+  "synergy_score": "integer (0-100)",
+  "synergy_report": "string (A professional, insightful 2-paragraph analysis of how this team functions together, their combined strengths, and potential bottlenecks)",
+  "combined_skill_matrix": [
+    {
+      "skill": "string (e.g., 'Frontend Architecture', 'Data Engineering', 'DevOps')",
+      "level": "integer (1-100 representing the team's combined proficiency)"
+    }
+  ],
+  "missing_skills": ["string (e.g., 'Cloud Infrastructure', 'UI/UX Design')"]
+}
+"""
+
+async def generate_squad_insights(users_data: list) -> Dict[str, Any]:
+    """Passes a list of GitHub user data to Groq to generate team synergy insights."""
+    
+    mini_team_data = []
+    for data in users_data:
+        mini_team_data.append({
+            "username": data.get("raw_profile", {}).get("username") or data.get("raw_profile", {}).get("login"),
+            "bio": data.get("raw_profile", {}).get("bio"),
+            "stats": data.get("stats", {}),
+            "top_repos": [r.get("language") for r in data.get("raw_repos", [])[:5] if r.get("language")]
+        })
+        
+    user_prompt = json.dumps(mini_team_data, indent=2)
+    
+    try:
+        chat_completion = await client.chat.completions.create(
+            messages=[
+                {"role": "system", "content": SQUAD_PROMPT},
+                {"role": "user", "content": user_prompt}
+            ],
+            model="llama-3.1-8b-instant",
+            temperature=0.7,
+            max_tokens=1500,
+            response_format={"type": "json_object"}
+        )
+        return json.loads(chat_completion.choices[0].message.content)
+    except Exception as e:
+        print(f"Error generating squad insights: {e}")
+        return {
+            "team_name": "The Unresolved Promises",
+            "synergy_score": 0,
+            "synergy_report": "Failed to analyze team synergy due to an API error.",
+            "combined_skill_matrix": [],
+            "missing_skills": []
+        }
