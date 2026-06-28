@@ -12,9 +12,6 @@ We ripped out the old tabbed interface and neon purple glows. Welcome to the sle
 * Ambient blurred orbs.
 * Crystal clear data presentation.
 
-### 🔥 AI Commit Roaster
-Why read source code when you can just make fun of it? GitScope AI now intercepts a developer's recent `PushEvents`, reads their raw commit messages, and uses Gemini AI to generate a brutal, hilarious roast of their coding habits. ("Why is every commit named 'wip'?!")
-
 ### 🟩 Classic Contribution Heatmap
 We brought back the iconic GitHub green squares! Integrated a massive, full-width Contribution Graph at the bottom of the dashboard that perfectly mimics GitHub's native dark-mode heatmap. 
 
