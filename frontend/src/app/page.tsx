@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Search, Activity, Code, Star, Trophy, GitCommit, Terminal, Target, LineChart, BrainCircuit, BarChart3, ChevronRight, Flame, Swords } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue, useSpring } from "framer-motion";
 import Link from "next/link";
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { GitHubCalendar } from "react-github-calendar";
@@ -20,15 +20,21 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<any>(null);
   const [error, setError] = useState("");
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  
+  const springX = useSpring(mouseX, { stiffness: 100, damping: 20 });
+  const springY = useSpring(mouseY, { stiffness: 100, damping: 20 });
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
+      mouseX.set(e.clientX - 250);
+      mouseY.set(e.clientY - 250);
     };
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
+  }, [mouseX, mouseY]);
 
   const analyzeProfile = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -74,11 +80,10 @@ export default function Home() {
       {/* Animated Gradient Spotlight (Mouse Follower) */}
       <motion.div 
         className="fixed top-0 left-0 w-[500px] h-[500px] rounded-full pointer-events-none z-0 blur-[150px] opacity-40 mix-blend-screen bg-gradient-to-r from-purple-600/40 via-pink-600/30 to-blue-600/40"
-        animate={{
-          x: mousePosition.x - 250,
-          y: mousePosition.y - 250,
+        style={{
+          x: springX,
+          y: springY,
         }}
-        transition={{ type: "tween", ease: "circOut", duration: 0.8 }}
       />
 
       {/* Sleek Minimal Navbar */}
