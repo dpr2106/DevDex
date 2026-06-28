@@ -15,11 +15,10 @@ We ripped out the old tabbed interface and neon purple glows. Welcome to the sle
 ### 🟩 Classic Contribution Heatmap
 We brought back the iconic GitHub green squares! Integrated a massive, full-width Contribution Graph at the bottom of the dashboard that perfectly mimics GitHub's native dark-mode heatmap. 
 
-### ⚔️ 1v1 Developer Battles (Mortal Kombat Mode)
+### ⚔️ 1v1 Developer Comparison On Analysis Of AI
 Want to settle a score? Our new **Developer Kombat** mode pits two developers against each other in a ruthless AI analysis of their codebase, complexity, and commit habits. 
 * Split-screen VS layout with glowing particle effects
-* Power Level calculations with dynamic counters
-* A brutal, highly-aggressive "Fatality" roast from the AI to finish off the loser!
+* Power Level calculations with dynamic counter
 * Crash-proof architecture ensuring massive GitHub profiles are minified properly before judging!
 
 ### 📄 AI Resume Generator (Export to PDF)
@@ -29,4 +28,4 @@ Turn your GitHub profile into a sleek, professional 1-page CV instantly!
 * Highlight your AI-determined core strengths, notable projects, and tech stack perfectly for recruiters.
 
 ---
-*Built with Next.js, FastAPI, Supabase, and Groq.*
+*Built with Next.js, FastAPI, Supabase, Python and Groq.*
