@@ -341,10 +341,10 @@ export default function ResumePage() {
               <h1 className="text-4xl font-serif font-black text-neutral-900 uppercase tracking-wide">{builderData.fullName}</h1>
               <div className="text-neutral-700 mt-2 font-medium text-sm flex gap-3 flex-wrap justify-center">
                 <span>{builderData.role}</span>
-                {builderData.email && <><span className="text-neutral-300">•</span><span>{builderData.email}</span></>}
-                {builderData.phone && <><span className="text-neutral-300">•</span><span>{builderData.phone}</span></>}
-                {builderData.linkedIn && <><span className="text-neutral-300">•</span><span>{builderData.linkedIn}</span></>}
-                <><span className="text-neutral-300">•</span><span>github.com/{username}</span></>
+                {builderData.email && <><span className="text-neutral-300">•</span><a href={`mailto:${builderData.email}`} className="hover:underline">{builderData.email}</a></>}
+                {builderData.phone && <><span className="text-neutral-300">•</span><a href={`tel:${builderData.phone}`} className="hover:underline">{builderData.phone}</a></>}
+                {builderData.linkedIn && <><span className="text-neutral-300">•</span><a href={builderData.linkedIn.startsWith('http') ? builderData.linkedIn : `https://${builderData.linkedIn}`} target="_blank" rel="noopener noreferrer" className="hover:underline">{builderData.linkedIn}</a></>}
+                <><span className="text-neutral-300">•</span><a href={`https://github.com/${username}`} target="_blank" rel="noopener noreferrer" className="hover:underline">github.com/{username}</a></>
               </div>
             </header>
 
@@ -393,7 +393,9 @@ export default function ResumePage() {
                   {repos.slice(0, 4).map((repo: any) => (
                     <div key={repo.id}>
                       <div className="flex justify-between items-baseline">
-                        <h3 className="font-bold text-[15px] text-neutral-900">{repo.name}</h3>
+                        <h3 className="font-bold text-[15px] text-neutral-900">
+                          <a href={`https://github.com/${username}/${repo.name}`} target="_blank" rel="noopener noreferrer" className="hover:underline">{repo.name}</a>
+                        </h3>
                         <span className="text-xs text-neutral-500 font-mono italic">{repo.language}</span>
                       </div>
                       <p className="text-[13.5px] mt-1 text-neutral-700 leading-snug">{repo.description || "No description provided."}</p>
