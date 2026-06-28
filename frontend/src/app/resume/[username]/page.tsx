@@ -377,8 +377,8 @@ export default function ResumePage() {
             ) : atsResult ? (
               <div className="flex flex-col gap-6">
                 <div className="flex flex-col items-center justify-center">
-                  <div className={`text-6xl font-black ${atsResult.score >= 80 ? 'text-emerald-500' : atsResult.score >= 60 ? 'text-amber-500' : 'text-red-500'}`}>
-                    {atsResult.score}%
+                  <div className={`text-6xl font-black ${parseInt(atsResult.score) >= 80 ? 'text-green-500' : parseInt(atsResult.score) >= 60 ? 'text-yellow-500' : 'text-pink-600'}`}>
+                    {atsResult.score}{typeof atsResult.score === 'number' || !String(atsResult.score).includes('%') ? '%' : ''}
                   </div>
                   <p className="text-xs text-neutral-500 uppercase font-bold tracking-widest mt-2">Match Score</p>
                 </div>
@@ -392,7 +392,7 @@ export default function ResumePage() {
                     <h3 className="text-xs font-bold text-neutral-500 uppercase tracking-wider mb-3 border-b border-neutral-100 pb-2">Missing Keywords</h3>
                     <div className="flex flex-wrap gap-2">
                       {atsResult.missing_keywords.map((kw: string, i: number) => (
-                        <span key={i} className="px-3 py-1 bg-red-100 text-red-700 text-xs font-bold rounded-lg border border-red-200">{kw}</span>
+                        <span key={i} className="px-3 py-1 bg-pink-100 text-pink-700 text-xs font-bold rounded-lg border border-pink-300">{kw}</span>
                       ))}
                     </div>
                   </div>
