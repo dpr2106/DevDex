@@ -177,7 +177,7 @@ export default function CareerTrajectory() {
                     className={`relative flex items-center justify-between md:justify-normal group ${i % 2 === 0 ? "md:flex-row-reverse" : ""}`}
                   >
                     
-                    <div className="absolute left-4 md:left-1/2 w-4 h-4 rounded-full bg-[#050505] border-4 border-purple-500 -translate-x-1/2 shadow-[0_0_10px_rgba(168,85,247,0.5)] group-hover:scale-150 group-hover:bg-purple-500 transition-all z-10"></div>
+                    <div className="absolute left-4 md:left-1/2 top-1/2 w-4 h-4 rounded-full bg-[#050505] border-4 border-purple-500 -translate-x-1/2 -translate-y-1/2 shadow-[0_0_10px_rgba(168,85,247,0.5)] group-hover:scale-150 group-hover:bg-purple-500 transition-all z-10"></div>
                     
                     <div className="hidden md:block w-5/12"></div>
                     
