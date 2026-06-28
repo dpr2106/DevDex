@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Search, Activity, Code, Star, Trophy, GitCommit, Terminal, Target, LineChart, BrainCircuit, BarChart3, ChevronRight, Flame, Swords } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
@@ -20,6 +20,15 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<any>(null);
   const [error, setError] = useState("");
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
 
   const analyzeProfile = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -61,6 +70,16 @@ export default function Home() {
 
       {/* Interactive Background */}
       <ParticleNetwork />
+
+      {/* Animated Gradient Spotlight (Mouse Follower) */}
+      <motion.div 
+        className="fixed top-0 left-0 w-[500px] h-[500px] rounded-full pointer-events-none z-0 blur-[150px] opacity-40 mix-blend-screen bg-gradient-to-r from-purple-600/40 via-pink-600/30 to-blue-600/40"
+        animate={{
+          x: mousePosition.x - 250,
+          y: mousePosition.y - 250,
+        }}
+        transition={{ type: "tween", ease: "circOut", duration: 0.8 }}
+      />
 
       {/* Sleek Minimal Navbar */}
       <header className="sticky top-0 z-50 bg-[#050505]/70 backdrop-blur-xl border-b border-white/5 px-6 py-4 flex items-center justify-between">
