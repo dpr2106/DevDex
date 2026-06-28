@@ -238,7 +238,7 @@ export default function Battle() {
 
               {/* Fatal Blow Footer */}
               <div className="mt-16 text-center">
-                <p className="text-red-500 font-black text-xl uppercase tracking-widest mb-4">FATALITY</p>
+                <p className="text-purple-400 font-black text-xl uppercase tracking-widest mb-4">MATCH VERDICT</p>
                 <p className="text-3xl text-neutral-300 italic">"{data.battle.fatal_blow}"</p>
               </div>
 
