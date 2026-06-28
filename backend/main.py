@@ -198,3 +198,18 @@ async def generate_cover_letter_endpoint(request: CoverLetterRequest):
     except Exception as e:
         print(f"Error in cover letter endpoint: {e}")
         raise HTTPException(status_code=500, detail="Failed to generate cover letter.")
+
+class ATSRequest(BaseModel):
+    resume_text: str
+    target_role: str
+
+@app.post("/api/ats-score")
+async def generate_ats_score_endpoint(request: ATSRequest):
+    """Generates an ATS match score."""
+    try:
+        from ai_service import check_ats_score
+        result = await check_ats_score(request.resume_text, request.target_role)
+        return result
+    except Exception as e:
+        print(f"Error in ATS endpoint: {e}")
+        raise HTTPException(status_code=500, detail="Failed to calculate ATS score.")

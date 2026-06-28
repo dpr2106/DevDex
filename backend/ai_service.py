@@ -256,3 +256,33 @@ async def generate_cover_letter(github_data: Dict[str, Any], role: str, company:
     except Exception as e:
         print(f"Error generating cover letter: {e}")
         return "Could not generate cover letter at this time. Please try again later."
+
+ATS_SCORE_PROMPT = """You are an elite Applicant Tracking System (ATS) and Senior Technical Recruiter.
+You will be provided with a candidate's resume text and their target role.
+Analyze how well the resume matches the target role.
+
+You MUST respond with a valid JSON object strictly matching this schema:
+{
+  "score": "integer (0 to 100 representing the match percentage)",
+  "feedback": "string (A 2-sentence summary of why they got this score)",
+  "missing_keywords": ["string"]
+}
+"""
+
+async def check_ats_score(resume_text: str, target_role: str) -> Dict[str, Any]:
+    """Generates an ATS score based on the resume text and target role."""
+    try:
+        completion = await client.chat.completions.create(
+            messages=[
+                {"role": "system", "content": ATS_SCORE_PROMPT},
+                {"role": "user", "content": f"Target Role: {target_role}\n\nResume Text:\n{resume_text}"}
+            ],
+            model="llama-3.1-8b-instant",
+            temperature=0.3,
+            max_tokens=500,
+            response_format={"type": "json_object"}
+        )
+        return json.loads(completion.choices[0].message.content)
+    except Exception as e:
+        print(f"Error generating ATS score: {e}")
+        return {"score": 0, "feedback": "Failed to analyze resume.", "missing_keywords": []}

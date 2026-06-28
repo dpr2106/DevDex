@@ -50,6 +50,32 @@ export default function ResumePage() {
   const [coverLetterText, setCoverLetterText] = useState("");
   const [generatingCoverLetter, setGeneratingCoverLetter] = useState(false);
 
+  const [showATSModal, setShowATSModal] = useState(false);
+  const [atsLoading, setAtsLoading] = useState(false);
+  const [atsResult, setAtsResult] = useState<any>(null);
+
+  const handleCheckATS = async () => {
+    if (!builderData.role) return;
+    setAtsLoading(true);
+    setShowATSModal(true);
+    const resumeText = `${builderData.fullName} ${builderData.role} ${builderData.summary} ${builderData.skills} ${customExp} ${customEdu}`;
+    try {
+      const response = await fetch("http://localhost:8000/api/ats-score", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ resume_text: resumeText, target_role: builderData.role })
+      });
+      if (response.ok) {
+        const result = await response.json();
+        setAtsResult(result);
+      }
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setAtsLoading(false);
+    }
+  };
+
   const handleGenerateCoverLetter = async () => {
     if (!coverLetterCompany || !coverLetterTargetRole) return;
     setGeneratingCoverLetter(true);
@@ -192,6 +218,13 @@ export default function ResumePage() {
           </button>
           
           <button 
+            onClick={handleCheckATS}
+            className="w-full py-2 bg-emerald-100 hover:bg-emerald-200 text-emerald-700 font-bold rounded-xl text-sm transition-colors flex justify-center items-center gap-2"
+          >
+            🎯 Check ATS Score
+          </button>
+          
+          <button 
             onClick={() => window.print()}
             className="mt-2 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-black py-3 px-6 rounded-xl shadow-lg flex items-center justify-center gap-2 transition-all hover:scale-[1.02]"
           >
@@ -323,6 +356,50 @@ export default function ResumePage() {
                   className="w-full flex-1 min-h-[250px] p-4 bg-neutral-50 border border-neutral-200 rounded-xl text-sm text-neutral-900 resize-y outline-none focus:ring-2 focus:ring-indigo-500" 
                 />
               </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {showATSModal && (
+        <div className="fixed inset-0 bg-black/60 z-[100] flex items-center justify-center p-4 backdrop-blur-sm print:hidden">
+          <div className="bg-white rounded-2xl w-full max-w-md max-h-[90vh] overflow-y-auto shadow-2xl p-6 border border-neutral-200 flex flex-col">
+            <div className="flex justify-between items-center mb-6 border-b border-neutral-100 pb-4 shrink-0">
+              <h2 className="text-xl font-black text-neutral-900">🎯 ATS Match Score</h2>
+              <button onClick={() => setShowATSModal(false)} className="text-neutral-500 hover:text-neutral-900 font-bold p-2 bg-neutral-100 rounded-lg transition-colors">Close</button>
+            </div>
+            
+            {atsLoading ? (
+              <div className="flex flex-col items-center justify-center py-10 gap-4">
+                <Loader2 className="w-8 h-8 animate-spin text-emerald-500" />
+                <p className="text-neutral-500 text-sm font-bold uppercase tracking-widest">Scanning Resume...</p>
+              </div>
+            ) : atsResult ? (
+              <div className="flex flex-col gap-6">
+                <div className="flex flex-col items-center justify-center">
+                  <div className={`text-6xl font-black ${atsResult.score >= 80 ? 'text-emerald-500' : atsResult.score >= 60 ? 'text-amber-500' : 'text-red-500'}`}>
+                    {atsResult.score}%
+                  </div>
+                  <p className="text-xs text-neutral-500 uppercase font-bold tracking-widest mt-2">Match Score</p>
+                </div>
+                
+                <div className="bg-neutral-50 p-4 rounded-xl border border-neutral-100">
+                  <p className="text-sm text-neutral-800 leading-relaxed">{atsResult.feedback}</p>
+                </div>
+                
+                {atsResult.missing_keywords && atsResult.missing_keywords.length > 0 && (
+                  <div>
+                    <h3 className="text-xs font-bold text-neutral-500 uppercase tracking-wider mb-3 border-b border-neutral-100 pb-2">Missing Keywords</h3>
+                    <div className="flex flex-wrap gap-2">
+                      {atsResult.missing_keywords.map((kw: string, i: number) => (
+                        <span key={i} className="px-3 py-1 bg-red-100 text-red-700 text-xs font-bold rounded-lg border border-red-200">{kw}</span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div className="text-center text-red-500 text-sm">Could not load ATS score.</div>
             )}
           </div>
         </div>
