@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { GitHubCalendar } from "react-github-calendar";
+import ParticleNetwork from "../components/ParticleNetwork";
 
 const GithubIcon = ({ className }: { className?: string }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
@@ -57,6 +58,9 @@ export default function Home() {
       <div className="fixed top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-purple-600/10 blur-[120px] pointer-events-none" />
       <div className="fixed bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-blue-600/10 blur-[120px] pointer-events-none" />
       <div className="fixed top-[40%] left-[60%] w-[30%] h-[30%] rounded-full bg-emerald-600/5 blur-[120px] pointer-events-none" />
+
+      {/* Interactive Background */}
+      <ParticleNetwork />
 
       {/* Sleek Minimal Navbar */}
       <header className="sticky top-0 z-50 bg-[#050505]/70 backdrop-blur-xl border-b border-white/5 px-6 py-4 flex items-center justify-between">
