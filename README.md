@@ -2,10 +2,6 @@
 
 GitScope AI has evolved from a simple global leaderboard into a **Steroid-Injected Developer Profiling Tool**. Enter any GitHub username and instantly generate a deep architectural profile and recruiter assessment.
 
-## 🚀 Latest Updates (v2.0)
-
-We just dropped a massive update entirely transforming the user experience!
-
 ### 🍱 The "Color Bento Box" Dashboard
 We ripped out the old tabbed interface and neon purple glows. Welcome to the sleek, ultra-modern **Color Bento Box**. Eight distinct, beautifully glassmorphic cards seamlessly displaying a developer's entire profile at a glance.
 * Zero clicks needed.
