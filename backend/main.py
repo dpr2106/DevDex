@@ -253,3 +253,31 @@ async def analyze_squad_endpoint(request: SquadRequest):
     except Exception as e:
         print(f"Error in Squad endpoint: {e}")
         raise HTTPException(status_code=500, detail="Failed to generate squad insights.")
+
+class RepoHealthRequest(BaseModel):
+    repo_path: str # e.g. "facebook/react"
+
+@app.post("/api/repo-health")
+async def repo_health_endpoint(request: RepoHealthRequest):
+    """Analyzes a repository for health and production readiness."""
+    if not request.repo_path or "/" not in request.repo_path:
+        raise HTTPException(status_code=400, detail="Invalid repository format. Use 'owner/repo'.")
+    
+    owner, repo = request.repo_path.split("/", 1)
+    
+    try:
+        from github_service import fetch_repo_data
+        repo_data = await fetch_repo_data(owner, repo)
+        
+        from ai_service import generate_repo_health_insights
+        health_insights = await generate_repo_health_insights(repo_data)
+        
+        return {
+            "repository": request.repo_path,
+            "insights": health_insights
+        }
+    except ValueError as ve:
+        raise HTTPException(status_code=404, detail=str(ve))
+    except Exception as e:
+        print(f"Error in Repo Health endpoint: {e}")
+        raise HTTPException(status_code=500, detail="Failed to analyze repository.")

@@ -116,6 +116,9 @@ export default function Home() {
               </Link>
             </>
           )}
+          <Link href="/repo-health" className="flex items-center gap-2 bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white font-black uppercase tracking-widest rounded-xl px-4 py-2 transition-all text-xs shadow-[0_0_15px_rgba(16,185,129,0.4)] hover:shadow-[0_0_25px_rgba(16,185,129,0.6)] transform hover:scale-105">
+            <Activity className="w-4 h-4" /> Repo Health
+          </Link>
           <Link href="/squad" className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-500 hover:from-blue-500 hover:to-indigo-400 text-white font-black uppercase tracking-widest rounded-xl px-4 py-2 transition-all text-xs shadow-[0_0_15px_rgba(59,130,246,0.4)] hover:shadow-[0_0_25px_rgba(59,130,246,0.6)] transform hover:scale-105">
             <Users className="w-4 h-4" /> Squad Mode
           </Link>

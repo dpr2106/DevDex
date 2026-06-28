@@ -342,3 +342,67 @@ async def generate_squad_insights(users_data: list) -> Dict[str, Any]:
             "combined_skill_matrix": [],
             "missing_skills": []
         }
+
+REPO_HEALTH_PROMPT = """You are GitScope AI, a Staff DevOps Engineer and Senior Software Architect.
+You will receive raw JSON data about a GitHub repository (including stats, languages, and recent commits).
+Analyze the project's architecture, maintainability, and production readiness.
+
+You MUST respond with a valid JSON object strictly matching this schema:
+{
+  "production_readiness_score": "integer (0-100)",
+  "architecture_summary": "string (A professional 2-paragraph overview of the repository's tech stack, apparent patterns, and code structure)",
+  "tech_debt_warning": "string (Identify potential red flags like lack of tests, messy commits, or outdated dependencies)",
+  "maintainability_index": {
+    "score": "integer (0-100)",
+    "reasoning": "string (1 sentence explaining the maintainability score)"
+  }
+}
+"""
+
+async def generate_repo_health_insights(repo_data: Dict[str, Any]) -> Dict[str, Any]:
+    """Generates repository health insights using Groq."""
+    
+    # Minify for token limits
+    repo_info = repo_data.get("repo_info", {})
+    recent_commits = repo_data.get("recent_commits", [])
+    
+    mini_data = {
+        "name": repo_info.get("full_name"),
+        "description": repo_info.get("description"),
+        "language": repo_info.get("language"),
+        "stars": repo_info.get("stargazers_count"),
+        "forks": repo_info.get("forks_count"),
+        "open_issues": repo_info.get("open_issues_count"),
+        "has_wiki": repo_info.get("has_wiki"),
+        "has_pages": repo_info.get("has_pages"),
+        "recent_commits": [
+            {
+                "message": c.get("commit", {}).get("message"),
+                "date": c.get("commit", {}).get("author", {}).get("date")
+            }
+            for c in recent_commits[:10]
+        ]
+    }
+    
+    user_prompt = json.dumps(mini_data, indent=2)
+    
+    try:
+        chat_completion = await client.chat.completions.create(
+            messages=[
+                {"role": "system", "content": REPO_HEALTH_PROMPT},
+                {"role": "user", "content": user_prompt}
+            ],
+            model="llama-3.1-8b-instant",
+            temperature=0.7,
+            max_tokens=1500,
+            response_format={"type": "json_object"}
+        )
+        return json.loads(chat_completion.choices[0].message.content)
+    except Exception as e:
+        print(f"Error generating repo insights: {e}")
+        return {
+            "production_readiness_score": 0,
+            "architecture_summary": "Failed to analyze repository due to an API error.",
+            "tech_debt_warning": "N/A",
+            "maintainability_index": {"score": 0, "reasoning": "Error"}
+        }

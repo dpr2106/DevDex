@@ -96,3 +96,27 @@ async def gather_github_data(username: str) -> Dict[str, Any]:
         "raw_repos": repos,
         "raw_events": [e for e in events if e.get("type") in ["PushEvent", "CreateEvent", "PullRequestEvent"]][:15]
     }
+
+async def fetch_repo_data(owner: str, repo: str) -> Dict[str, Any]:
+    """Fetches details for a specific repository (repo info, recent commits)."""
+    repo_url = f"https://api.github.com/repos/{owner}/{repo}"
+    commits_url = f"https://api.github.com/repos/{owner}/{repo}/commits?per_page=10"
+    
+    async with httpx.AsyncClient() as client:
+        # Fetch Repo Details
+        repo_resp = await client.get(repo_url, headers=HEADERS)
+        if repo_resp.status_code == 404:
+            raise ValueError(f"Repository '{owner}/{repo}' not found.")
+        repo_resp.raise_for_status()
+        repo_info = repo_resp.json()
+        
+        # Fetch Recent Commits
+        commits_resp = await client.get(commits_url, headers=HEADERS)
+        commits_info = []
+        if commits_resp.status_code == 200:
+            commits_info = commits_resp.json()
+            
+    return {
+        "repo_info": repo_info,
+        "recent_commits": commits_info
+    }
