@@ -103,8 +103,23 @@ export default function Home() {
         
         {/* Empty State / Hero */}
         {!data && !loading && (
-          <div className="flex flex-col items-center justify-center mt-20 md:mt-32">
-            <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5 }} className="text-center mb-12">
+          <div className="flex flex-col items-center justify-center mt-20 md:mt-32 relative">
+            
+            {/* Floating Tech Icons */}
+            <motion.div animate={{ y: [0, -20, 0], rotate: [0, 10, 0] }} transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }} className="absolute -left-12 md:left-10 top-10 opacity-40 blur-[1px]">
+              <Code className="w-16 h-16 text-blue-400" />
+            </motion.div>
+            <motion.div animate={{ y: [0, 25, 0], rotate: [0, -15, 0] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }} className="absolute -right-12 md:right-10 top-20 opacity-30 blur-[2px]">
+              <Terminal className="w-20 h-20 text-emerald-400" />
+            </motion.div>
+            <motion.div animate={{ y: [0, -15, 0], rotate: [0, 20, 0] }} transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 2 }} className="absolute left-10 md:left-32 -bottom-20 opacity-20 blur-[3px]">
+              <BrainCircuit className="w-24 h-24 text-purple-400" />
+            </motion.div>
+            <motion.div animate={{ y: [0, 20, 0], rotate: [0, -10, 0] }} transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut", delay: 1.5 }} className="absolute right-10 md:right-32 -bottom-10 opacity-40 blur-[1px]">
+              <Target className="w-16 h-16 text-pink-400" />
+            </motion.div>
+
+            <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5 }} className="text-center mb-12 relative z-10">
               <h1 className="text-5xl md:text-7xl font-black tracking-tight mb-6 bg-gradient-to-br from-white to-neutral-400 bg-clip-text text-transparent">
                 Understand Developers.<br/><span className="bg-gradient-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent">Instantly.</span>
               </h1>
