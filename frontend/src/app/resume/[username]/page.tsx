@@ -399,7 +399,7 @@ export default function ResumePage() {
                         <h3 className="font-bold text-[15px] text-neutral-900">
                           <a href={`https://github.com/${username}/${repo.name}`} target="_blank" rel="noopener noreferrer" className="hover:underline">{repo.name}</a>
                         </h3>
-                        <span className="text-xs text-neutral-500 font-mono italic">{repo.language}</span>
+                        <span className="text-[10px] px-2 py-0.5 rounded-full border border-neutral-200 bg-neutral-100 text-neutral-600 font-bold uppercase tracking-wider">{repo.language}</span>
                       </div>
                       <p className="text-[13.5px] mt-1 text-neutral-700 leading-snug">{repo.description || "No description provided."}</p>
                     </div>
