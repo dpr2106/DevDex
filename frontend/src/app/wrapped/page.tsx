@@ -163,7 +163,7 @@ export default function GithubWrapped() {
                   className="absolute inset-0 bg-gradient-to-br from-pink-600 to-rose-900 p-8 flex flex-col justify-center"
                 >
                   <p className="text-pink-200 text-lg font-bold tracking-widest uppercase mb-4">The Vibe Check</p>
-                  <h2 className="text-4xl font-black text-white leading-tight mb-8">
+                  <h2 className="text-2xl md:text-3xl font-black text-white leading-tight mb-8" style={{ textWrap: 'balance' }}>
                     "{data.insights.vibe_check}"
                   </h2>
                   <div className="flex gap-4">
@@ -193,7 +193,7 @@ export default function GithubWrapped() {
                   <div className="text-7xl font-black text-white mb-6 uppercase tracking-tighter">
                     {Object.keys(data.stats.languages)[0] || "Unknown"}
                   </div>
-                  <h2 className="text-3xl font-black text-white leading-tight bg-black/20 p-6 rounded-3xl border border-white/10 backdrop-blur-md">
+                  <h2 className="text-xl md:text-2xl font-black text-white leading-tight bg-black/20 p-6 rounded-3xl border border-white/10 backdrop-blur-md">
                     "{data.insights.top_language_roast}"
                   </h2>
                 </motion.div>
@@ -208,7 +208,7 @@ export default function GithubWrapped() {
                   className="absolute inset-0 bg-gradient-to-br from-orange-500 to-red-900 p-8 flex flex-col justify-center"
                 >
                   <p className="text-orange-200 text-lg font-bold tracking-widest uppercase mb-4">Work/Life Balance</p>
-                  <h2 className="text-4xl font-black text-white leading-tight mb-8">
+                  <h2 className="text-2xl md:text-3xl font-black text-white leading-tight mb-8" style={{ textWrap: 'balance' }}>
                     "{data.insights.work_life_balance}"
                   </h2>
                   <div className="bg-white/10 p-6 rounded-3xl backdrop-blur-md border border-white/10">
@@ -228,7 +228,7 @@ export default function GithubWrapped() {
                   className="absolute inset-0 bg-[#0a0a0a] p-8 flex flex-col justify-center items-center text-center border-4 border-emerald-500"
                 >
                   <p className="text-emerald-400 text-sm font-bold tracking-widest uppercase mb-4">2026 Developer Persona</p>
-                  <h2 className="text-6xl font-black text-white mb-8 bg-gradient-to-b from-white to-neutral-500 bg-clip-text text-transparent">
+                  <h2 className="text-4xl md:text-5xl font-black text-white mb-8 bg-gradient-to-b from-white to-neutral-500 bg-clip-text text-transparent">
                     {data.insights.final_verdict}
                   </h2>
                   <div className="flex flex-wrap gap-2 justify-center mb-12">
