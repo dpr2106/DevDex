@@ -116,6 +116,9 @@ export default function Home() {
               </Link>
             </>
           )}
+          <Link href="/interview" className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-black uppercase tracking-widest rounded-xl px-4 py-2 transition-all text-xs shadow-[0_0_15px_rgba(59,130,246,0.4)] hover:shadow-[0_0_25px_rgba(59,130,246,0.6)] transform hover:scale-105">
+            <Code2 className="w-4 h-4" /> Tech Interview
+          </Link>
           <Link href="/trajectory" className="flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-500 hover:from-purple-500 hover:to-pink-400 text-white font-black uppercase tracking-widest rounded-xl px-4 py-2 transition-all text-xs shadow-[0_0_15px_rgba(168,85,247,0.4)] hover:shadow-[0_0_25px_rgba(168,85,247,0.6)] transform hover:scale-105">
             <LineChart className="w-4 h-4" /> Career Timeline
           </Link>

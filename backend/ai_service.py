@@ -480,3 +480,64 @@ async def generate_career_trajectory(github_data: Dict[str, Any]) -> Dict[str, A
             "current_stack": [],
             "milestones": []
         }
+
+INTERVIEW_PROMPT = """You are GitScope AI, a Principal Staff Engineer acting as a technical interviewer.
+You will receive JSON data about a developer's GitHub repositories, focusing on their top languages and projects.
+Your goal is to generate 5 highly specific, technical interview questions tailored EXACTLY to the code they have written.
+Do not ask generic LeetCode questions. Ask questions about the architectural patterns, state management, or potential pitfalls of the specific tech stack they use in their top repos.
+
+You MUST respond with a valid JSON object strictly matching this schema:
+{
+  "candidate_summary": "string (A brief 1-sentence technical profile of the candidate)",
+  "questions": [
+    {
+      "question": "string (The technical interview question)",
+      "why_ask_this": "string (Context for the interviewer on why this is a good question based on their repos)",
+      "expected_answer_concepts": "string (What a good answer sounds like / key concepts to listen for)"
+    }
+  ] // Must contain exactly 5 questions
+}
+"""
+
+async def generate_interview_questions(github_data: Dict[str, Any]) -> Dict[str, Any]:
+    """Generates tailored interview questions based on repo history."""
+    
+    repos = github_data.get("raw_repos", [])
+    if not repos:
+        raise ValueError("No repositories found to generate questions.")
+        
+    # Take top 10 repos sorted by stars to gauge their best work
+    sorted_repos = sorted(repos, key=lambda x: x.get("stargazers_count", 0), reverse=True)[:10]
+    
+    mini_data = {
+        "username": github_data.get("raw_profile", {}).get("login"),
+        "top_languages": list(github_data.get("developer_wrapped", {}).get("raw_stats", {}).get("languages", {}).keys())[:5],
+        "top_repos": [
+            {
+                "name": r.get("name"),
+                "language": r.get("language"),
+                "description": r.get("description")
+            } for r in sorted_repos
+        ]
+    }
+    
+    user_prompt = json.dumps(mini_data, indent=2)
+    
+    try:
+        chat_completion = await client.chat.completions.create(
+            messages=[
+                {"role": "system", "content": INTERVIEW_PROMPT},
+                {"role": "user", "content": user_prompt}
+            ],
+            model="llama-3.1-8b-instant",
+            temperature=0.8,
+            max_tokens=1500,
+            response_format={"type": "json_object"}
+        )
+        return json.loads(chat_completion.choices[0].message.content)
+    except Exception as e:
+        print(f"Error generating interview questions: {e}")
+        return {
+            "candidate_summary": "Error generating interview questions.",
+            "questions": []
+        }
