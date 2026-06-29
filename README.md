@@ -1,5 +1,4 @@
 <div align="center">
-  <img src="https://img.shields.io/badge/Status-Complete-success" alt="Status" />
   <img src="https://img.shields.io/badge/License-MIT-blue" alt="License" />
   <img src="https://img.shields.io/badge/Next.js-14-black" alt="Next.js" />
   <img src="https://img.shields.io/badge/FastAPI-Python-teal" alt="FastAPI" />
