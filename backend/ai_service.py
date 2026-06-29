@@ -541,3 +541,65 @@ async def generate_interview_questions(github_data: Dict[str, Any]) -> Dict[str,
             "candidate_summary": "Error generating interview questions.",
             "questions": []
         }
+
+MATCHMAKER_PROMPT = """You are GitScope AI, a Principal Open-Source Tech Lead.
+You will receive JSON data about a developer's GitHub repositories and their top programming languages.
+Your goal is to recommend 3 REAL, ACTIVE, HIGH-QUALITY open-source repositories on GitHub that they are perfectly suited to contribute to based on their tech stack.
+Use real, popular open-source projects (e.g., 'facebook/react', 'django/django', 'vercel/next.js', etc.). Do not invent projects.
+
+You MUST respond with a valid JSON object strictly matching this schema:
+{
+  "match_reasoning": "string (A brief 2-sentence summary of why these projects fit their specific profile)",
+  "recommendations": [
+    {
+      "project_name": "string (The owner/repo format, e.g. 'facebook/react')",
+      "language": "string (The primary language of the project)",
+      "description": "string (A brief description of what the project does)",
+      "why_you": "string (Why this developer is specifically suited to contribute to this project based on their repos)"
+    }
+  ] // Must contain exactly 3 recommendations
+}
+"""
+
+async def generate_oss_matches(github_data: Dict[str, Any]) -> Dict[str, Any]:
+    """Generates open-source project recommendations based on repo history."""
+    
+    repos = github_data.get("raw_repos", [])
+    if not repos:
+        raise ValueError("No repositories found to generate matches.")
+        
+    # Take top 10 repos sorted by stars to gauge their best work
+    sorted_repos = sorted(repos, key=lambda x: x.get("stargazers_count", 0), reverse=True)[:10]
+    
+    mini_data = {
+        "username": github_data.get("raw_profile", {}).get("login"),
+        "top_languages": list(github_data.get("developer_wrapped", {}).get("raw_stats", {}).get("languages", {}).keys())[:5],
+        "top_repos": [
+            {
+                "name": r.get("name"),
+                "language": r.get("language"),
+                "description": r.get("description")
+            } for r in sorted_repos
+        ]
+    }
+    
+    user_prompt = json.dumps(mini_data, indent=2)
+    
+    try:
+        chat_completion = await client.chat.completions.create(
+            messages=[
+                {"role": "system", "content": MATCHMAKER_PROMPT},
+                {"role": "user", "content": user_prompt}
+            ],
+            model="llama-3.1-8b-instant",
+            temperature=0.7,
+            max_tokens=1500,
+            response_format={"type": "json_object"}
+        )
+        return json.loads(chat_completion.choices[0].message.content)
+    except Exception as e:
+        print(f"Error generating OSS matches: {e}")
+        return {
+            "match_reasoning": "Failed to generate matches due to an API error.",
+            "recommendations": []
+        }
