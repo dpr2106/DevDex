@@ -416,10 +416,24 @@ async def wrapped_endpoint(request: WrappedRequest):
         from ai_service import generate_github_wrapped
         wrapped_insights = await generate_github_wrapped(github_data)
         
+        raw_repos = github_data.get("raw_repos", [])
+        languages_dict = {}
+        for repo in raw_repos:
+            lang = repo.get("language")
+            if lang:
+                languages_dict[lang] = languages_dict.get(lang, 0) + 1
+        
+        frontend_stats = {
+            "total_commits": sum(repo.get("size", 0) for repo in raw_repos),
+            "total_stars": sum(repo.get("stargazers_count", 0) for repo in raw_repos),
+            "total_repos": len(raw_repos),
+            "languages": languages_dict
+        }
+        
         return {
             "username": request.username,
             "avatar_url": github_data.get("raw_profile", {}).get("avatar_url"),
-            "stats": github_data.get("developer_wrapped", {}).get("raw_stats", {}),
+            "stats": frontend_stats,
             "insights": wrapped_insights
         }
     except Exception as e:
