@@ -603,3 +603,48 @@ async def generate_oss_matches(github_data: Dict[str, Any]) -> Dict[str, Any]:
             "match_reasoning": "Failed to generate matches due to an API error.",
             "recommendations": []
         }
+
+WRAPPED_PROMPT = """You are GitScope AI, a sassy, highly energetic host presenting a Spotify-Wrapped style year-in-review for a developer's GitHub profile.
+You will receive JSON data about their GitHub stats (commits, stars, top languages).
+Your goal is to generate a highly personalized, slightly roasted, and extremely fun narrative of their coding habits.
+Make it punchy, humorous, and engaging.
+
+You MUST respond with a valid JSON object strictly matching this schema:
+{
+  "vibe_check": "string (A short 1-sentence roast or hype-up of their overall coding style)",
+  "top_language_roast": "string (A funny comment specifically targeting their #1 most used language)",
+  "work_life_balance": "string (A joke about their commit frequency, repo count, or overall stats)",
+  "final_verdict": "string (A fun summary title for the developer, e.g. 'The Midnight Bug-Creator', 'The TypeScript Tryhard')"
+}
+"""
+
+async def generate_github_wrapped(github_data: Dict[str, Any]) -> Dict[str, Any]:
+    """Generates a Spotify-Wrapped style narrative based on GitHub stats."""
+    
+    stats = github_data.get("developer_wrapped", {}).get("raw_stats", {})
+    if not stats:
+        raise ValueError("No stats found to generate wrapped.")
+    
+    # We pass the pre-calculated stats which already have languages, commits, stars, etc.
+    user_prompt = json.dumps(stats, indent=2)
+    
+    try:
+        chat_completion = await client.chat.completions.create(
+            messages=[
+                {"role": "system", "content": WRAPPED_PROMPT},
+                {"role": "user", "content": user_prompt}
+            ],
+            model="llama-3.1-8b-instant",
+            temperature=0.9,
+            max_tokens=800,
+            response_format={"type": "json_object"}
+        )
+        return json.loads(chat_completion.choices[0].message.content)
+    except Exception as e:
+        print(f"Error generating GitHub Wrapped: {e}")
+        return {
+            "vibe_check": "Failed to generate your Wrapped due to an API error.",
+            "top_language_roast": "We couldn't analyze your languages, so we'll just assume you write in Brainfuck.",
+            "work_life_balance": "You broke our servers, which means you probably code too much.",
+            "final_verdict": "The Unwrappable Enigma"
+        }

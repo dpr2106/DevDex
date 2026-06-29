@@ -116,6 +116,9 @@ export default function Home() {
               </Link>
             </>
           )}
+          <Link href="/wrapped" className="flex items-center gap-2 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-400 hover:to-rose-400 text-white font-black uppercase tracking-widest rounded-xl px-4 py-2 transition-all text-xs shadow-[0_0_15px_rgba(236,72,153,0.4)] hover:shadow-[0_0_25px_rgba(236,72,153,0.6)] transform hover:scale-105">
+            <Flame className="w-4 h-4" /> Wrapped
+          </Link>
           <Link href="/matchmaker" className="flex items-center gap-2 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-400 hover:to-amber-400 text-white font-black uppercase tracking-widest rounded-xl px-4 py-2 transition-all text-xs shadow-[0_0_15px_rgba(249,115,22,0.4)] hover:shadow-[0_0_25px_rgba(249,115,22,0.6)] transform hover:scale-105">
             <Users className="w-4 h-4" /> OSS Matchmaker
           </Link>

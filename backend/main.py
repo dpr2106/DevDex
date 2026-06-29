@@ -388,3 +388,40 @@ async def matchmaker_endpoint(request: MatchmakerRequest):
     except Exception as e:
         print(f"Error in Matchmaker endpoint: {e}")
         raise HTTPException(status_code=500, detail="Failed to generate OSS matches.")
+
+class WrappedRequest(BaseModel):
+    username: str
+
+@app.post("/api/wrapped")
+async def wrapped_endpoint(request: WrappedRequest):
+    """Generates a Spotify-Wrapped style overview of a user's GitHub."""
+    if not request.username:
+        raise HTTPException(status_code=400, detail="Username is required.")
+        
+    try:
+        # Check cache first
+        response = supabase.table("analyses").select("*").eq("github_username", request.username.lower()).execute()
+        if response.data and len(response.data) > 0:
+            cached_data = response.data[0]
+            github_data = {
+                "raw_profile": cached_data.get("raw_profile", {}),
+                "raw_repos": cached_data.get("raw_repos", []),
+                "stats": cached_data.get("developer_wrapped", {}).get("raw_stats", {}),
+                "developer_wrapped": cached_data.get("developer_wrapped", {})
+            }
+        else:
+            # Fetch live if missing
+            github_data = await gather_github_data(request.username)
+
+        from ai_service import generate_github_wrapped
+        wrapped_insights = await generate_github_wrapped(github_data)
+        
+        return {
+            "username": request.username,
+            "avatar_url": github_data.get("raw_profile", {}).get("avatar_url"),
+            "stats": github_data.get("developer_wrapped", {}).get("raw_stats", {}),
+            "insights": wrapped_insights
+        }
+    except Exception as e:
+        print(f"Error in Wrapped endpoint: {e}")
+        raise HTTPException(status_code=500, detail="Failed to generate GitHub Wrapped.")
