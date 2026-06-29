@@ -80,7 +80,7 @@ export default function GithubWrapped() {
                 GitHub Wrapped
               </h1>
               <p className="text-neutral-400 text-lg md:text-xl font-medium max-w-xl mx-auto leading-relaxed">
-                Relive your year in code. We analyze your stats to bring you a highly personalized, slightly  review of your coding habits.
+                Relive your year in code!!
               </p>
             </motion.div>
 
