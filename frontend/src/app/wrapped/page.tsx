@@ -175,7 +175,7 @@ export default function GithubWrapped() {
                     <div className="bg-white/10 p-4 rounded-2xl backdrop-blur-md">
                       <GitCommit className="w-8 h-8 text-pink-300 mb-2" />
                       <p className="text-3xl font-black text-white">{data.stats.total_commits}</p>
-                      <p className="text-xs text-pink-200 uppercase font-bold tracking-wider">Total Commits</p>
+                      <p className="text-xs text-pink-200 uppercase font-bold tracking-wider">Total KB Written</p>
                     </div>
                   </div>
                 </motion.div>
