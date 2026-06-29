@@ -15,15 +15,16 @@ Your job is to analyze the provided raw GitHub profile and repository data and o
 You MUST respond with a valid JSON object strictly matching this schema:
 {
   "dna_type": "string (e.g., 'Builder', 'Hacker', 'AI Engineer', 'Open Source Contributor')",
-  "ai_summary": "string (1 paragraph summarizing their habits and ownership. CRITICAL: MUST BE WRITTEN IN THE FIRST-PERSON PERSPECTIVE, as if the developer is writing it about themselves. Use 'I', 'My', 'I have built', etc. Professional and engaging tone)",
+  "ai_summary": "string (1 paragraph summarizing their habits and ownership. Written in the THIRD-PERSON from the AI's perspective analyzing them, e.g. 'This developer has built...', 'They focus on...')",
+  "resume_summary": "string (1 paragraph summarizing their experience. CRITICAL: MUST BE WRITTEN IN THE FIRST-PERSON PERSPECTIVE for a traditional resume, e.g. 'I am a software engineer...', 'I have built...')",
   "consistency_analysis": {
     "rhythm": "string (e.g., 'Incremental Developer', 'Weekend Warrior', 'Hackathon Sprinter')",
-    "description": "string (Short description, also written in FIRST-PERSON 'I tend to...')"
+    "description": "string (Short description, written in THIRD-PERSON from the AI's perspective)"
   },
   "recruiter_mode": {
     "shortlist": "boolean",
-    "biggest_strength": "string (Written in FIRST-PERSON, e.g., 'I excel at...')",
-    "biggest_weakness": "string (Written in FIRST-PERSON, e.g., 'I sometimes struggle with...')",
+    "biggest_strength": "string (Short punchy fragment, no pronouns, e.g., 'Expert in scalable architectures' or 'Consistently ships high-quality code')",
+    "biggest_weakness": "string (Short punchy fragment, no pronouns, e.g., 'Occasional gaps in test coverage' or 'Tends to abandon side projects')",
     "resume_recommendation": "string"
   },
   "roadmap": {

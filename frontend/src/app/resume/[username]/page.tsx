@@ -134,7 +134,7 @@ export default function ResumePage() {
           email: result.raw_profile?.email || "",
           phone: "",
           linkedIn: "",
-          summary: result.ai_summary || "",
+          summary: result.resume_summary || result.ai_summary || "",
           skills: Object.keys(result.developer_wrapped?.raw_stats?.top_languages || {}).slice(0, 10).join(', ')
         });
       } catch (err: any) {
