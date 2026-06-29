@@ -24,8 +24,8 @@
 - 📈 **Career Trajectory Timeline:** Uses historical commit data to plot the developer's growth from Junior to Senior, predicting their next career milestone.
 - 🩺 **Repo Health Scanner:** Scans public repositories to find code smells, security vulnerabilities, and architectural bottlenecks, providing actionable AI feedback.
 - ⚔️ **Battle Mode:** Pit two developers against each other in a fun, AI-judged comparison to see who has the cleaner code, better velocity, and higher impact.
-- 👥 **Squad Mode:** Build the ultimate engineering team by adding multiple developers and letting AI assign them roles (e.g., Tech Lead, DevOps, Frontend Maestro).
-- 🔥 **GitHub Wrapped:** A vibrant, Spotify-style year-in-review that playfully roasts a developer's coding habits, most used languages, and work-life balance.
+- 👥 **Squad Mode:** Build the ultimate engineering team by adding multiple developers and letting AI assign them roles (e.g., Tech Lead, DevOps, Frontend Developer).
+- 🔥 **GitHub Wrapped:** A vibrant, Spotify-style year-in-review that playfully explains a developer's coding habits, most used languages, and work-life balance.
 
 ## 🛠️ Tech Stack
 
