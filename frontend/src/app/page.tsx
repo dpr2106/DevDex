@@ -95,7 +95,7 @@ export default function Home() {
           <div className="p-2 bg-gradient-to-br from-purple-500 to-blue-600 rounded-lg shadow-[0_0_15px_rgba(168,85,247,0.4)] group-hover:shadow-[0_0_25px_rgba(168,85,247,0.6)] transition-shadow">
             <GithubIcon className="w-5 h-5 text-white" />
           </div>
-          <span className="text-lg font-bold tracking-tight text-white hidden sm:block">GitScope AI</span>
+          <span className="text-lg font-bold tracking-tight text-white hidden sm:block">DevDex</span>
         </div>
 
         <div className="flex items-center gap-3 overflow-x-auto custom-scrollbar pb-2 md:pb-0">

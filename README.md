@@ -4,7 +4,7 @@
   <img src="https://img.shields.io/badge/FastAPI-Python-teal" alt="FastAPI" />
   <br />
   <br />
-  <h1>🚀 GitScope AI</h1>
+  <h1>🚀 DevDex</h1>
   <h3>Understand Developers. Instantly.</h3>
   <p>An AI-powered intelligence platform that analyzes GitHub profiles to generate tailored resumes, mock technical interviews, career timelines, and open-source matchmaking.</p>
 </div>
@@ -13,7 +13,7 @@
 
 ## 🌟 Overview
 
-**GitScope AI** is a highly interactive, beautifully designed platform built to transform how developers showcase their skills and how recruiters find talent. Instead of manually reading through hundreds of repositories, simply enter a GitHub username. GitScope AI instantly aggregates their commit history, repository complexity, and language distribution, feeding it into a powerful LLM to generate deep, actionable insights.
+**DevDex** is a highly interactive, beautifully designed platform built to transform how developers showcase their skills and how recruiters find talent. Instead of manually reading through hundreds of repositories, simply enter a GitHub username. DevDex instantly aggregates their commit history, repository complexity, and language distribution, feeding it into a powerful LLM to generate deep, actionable insights.
 
 ## ✨ Features
 
@@ -42,7 +42,7 @@
 - **APIs:** GitHub REST API
 
 ## 🎨 Design Philosophy
-GitScope AI was designed with a "dark mode by default" philosophy, utilizing heavy glassmorphism, vibrant neon accents, and smooth micro-animations. It feels premium, responsive, and alive, treating the developer's data with the respect it deserves.
+DevDex was designed with a "dark mode by default" philosophy, utilizing heavy glassmorphism, vibrant neon accents, and smooth micro-animations. It feels premium, responsive, and alive, treating the developer's data with the respect it deserves.
 
 ## 📝 Copyright
 &copy; 2026 Prashanth. All Rights Reserved. 

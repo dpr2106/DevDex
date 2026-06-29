@@ -701,7 +701,7 @@ export default function ResumePage() {
         
         {/* Footer */}
         <footer className="mt-12 pt-6 border-t border-purple-500/20 text-center text-xs text-purple-500/50 font-mono">
-          Generated automatically by GitScope AI | Data powered by GitHub & AI
+          Generated automatically by DevDex | Data powered by GitHub & AI
         </footer>
       </div>
     </div>

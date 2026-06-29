@@ -1,4 +1,4 @@
--- Create table for storing GitScope AI analyses
+-- Create table for storing DevDex analyses
 CREATE TABLE IF NOT EXISTS public.analyses (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     github_username TEXT UNIQUE NOT NULL,

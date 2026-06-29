@@ -12,8 +12,8 @@ from pydantic import BaseModel
 load_dotenv()
 
 app = FastAPI(
-    title="GitScope AI API",
-    description="Backend API for GitScope AI platform",
+    title="DevDex API",
+    description="Backend API for DevDex platform",
     version="1.0.0"
 )
 
@@ -34,7 +34,7 @@ supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 @app.get("/")
 def read_root():
-    return {"status": "ok", "message": "Welcome to the GitScope AI API!"}
+    return {"status": "ok", "message": "Welcome to the DevDex API!"}
 
 @app.get("/health")
 def health_check():

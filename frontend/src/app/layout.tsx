@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "GitScope",
-  description: "GitScope-AI",
+  title: "DevDex",
+  description: "DevDex",
 };
 
 export default function RootLayout({

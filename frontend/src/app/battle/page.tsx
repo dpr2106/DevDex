@@ -52,7 +52,7 @@ export default function Battle() {
           <div className="p-2 bg-gradient-to-br from-red-500 to-orange-600 rounded-lg shadow-[0_0_15px_rgba(239,68,68,0.4)] group-hover:shadow-[0_0_25px_rgba(239,68,68,0.6)] transition-shadow">
             <Swords className="w-5 h-5 text-white" />
           </div>
-          <span className="text-lg font-bold tracking-tight text-white hidden sm:block">GitScope AI Battles</span>
+          <span className="text-lg font-bold tracking-tight text-white hidden sm:block">DevDex Battles</span>
         </Link>
         <Link href="/" className="text-neutral-400 hover:text-white flex items-center gap-2 text-sm transition-colors">
           <ArrowLeft className="w-4 h-4" /> Back to Dashboard
