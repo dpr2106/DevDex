@@ -621,7 +621,7 @@ You MUST respond with a valid JSON object strictly matching this schema:
 async def generate_github_wrapped(github_data: Dict[str, Any]) -> Dict[str, Any]:
     """Generates a Spotify-Wrapped style narrative based on GitHub stats."""
     
-    stats = github_data.get("developer_wrapped", {}).get("raw_stats", {})
+    stats = github_data.get("developer_wrapped", {}).get("raw_stats", {}) or github_data.get("stats", {})
     if not stats:
         raise ValueError("No stats found to generate wrapped.")
     
