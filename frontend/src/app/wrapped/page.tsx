@@ -53,7 +53,7 @@ export default function GithubWrapped() {
   return (
     <main className="min-h-screen bg-[#050505] text-neutral-200 font-sans selection:bg-pink-500/30 overflow-x-hidden relative flex flex-col">
       <ParticleNetwork />
-      
+
       {/* Spotify-esque Gradient Blobs */}
       <div className="fixed top-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-pink-600/20 blur-[150px] pointer-events-none" />
       <div className="fixed bottom-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-emerald-600/10 blur-[150px] pointer-events-none" />
@@ -69,7 +69,7 @@ export default function GithubWrapped() {
       </header>
 
       <div className="flex-grow flex items-center justify-center p-6 md:p-12 relative z-10 w-full max-w-7xl mx-auto">
-        
+
         {!data && !loading && (
           <div className="w-full max-w-2xl flex flex-col items-center justify-center">
             <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="text-center mb-12">
@@ -80,7 +80,7 @@ export default function GithubWrapped() {
                 GitHub Wrapped
               </h1>
               <p className="text-neutral-400 text-lg md:text-xl font-medium max-w-xl mx-auto leading-relaxed">
-                Relive your year in code. We analyze your stats to bring you a highly personalized, slightly roasted review of your coding habits.
+                Relive your year in code. We analyze your stats to bring you a highly personalized, slightly  review of your coding habits.
               </p>
             </motion.div>
 
@@ -96,7 +96,7 @@ export default function GithubWrapped() {
                 />
               </div>
 
-              <button 
+              <button
                 type="submit"
                 disabled={loading || !username.trim()}
                 className="w-full flex items-center justify-center gap-3 bg-white text-black font-black uppercase tracking-widest rounded-2xl py-5 transition-all disabled:opacity-50 hover:bg-neutral-200 hover:scale-[1.02] active:scale-95"
@@ -123,7 +123,7 @@ export default function GithubWrapped() {
 
         {data && !loading && (
           <div className="w-full h-[70vh] max-h-[800px] max-w-md mx-auto relative rounded-3xl overflow-hidden shadow-[0_0_50px_rgba(236,72,153,0.3)] bg-[#121212] flex flex-col">
-            
+
             {/* Progress Bars */}
             <div className="absolute top-4 left-4 right-4 flex gap-1 z-20">
               {[0, 1, 2, 3, 4].map((i) => (
@@ -140,7 +140,7 @@ export default function GithubWrapped() {
             {/* Slides */}
             <AnimatePresence mode="wait">
               {currentSlide === 0 && (
-                <motion.div 
+                <motion.div
                   key="slide0"
                   initial={{ opacity: 0, scale: 1.1 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -155,7 +155,7 @@ export default function GithubWrapped() {
               )}
 
               {currentSlide === 1 && (
-                <motion.div 
+                <motion.div
                   key="slide1"
                   initial={{ opacity: 0, x: 50 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -182,7 +182,7 @@ export default function GithubWrapped() {
               )}
 
               {currentSlide === 2 && (
-                <motion.div 
+                <motion.div
                   key="slide2"
                   initial={{ opacity: 0, x: 50 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -200,7 +200,7 @@ export default function GithubWrapped() {
               )}
 
               {currentSlide === 3 && (
-                <motion.div 
+                <motion.div
                   key="slide3"
                   initial={{ opacity: 0, x: 50 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -220,7 +220,7 @@ export default function GithubWrapped() {
               )}
 
               {currentSlide === 4 && (
-                <motion.div 
+                <motion.div
                   key="slide4"
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -238,7 +238,7 @@ export default function GithubWrapped() {
                       </span>
                     ))}
                   </div>
-                  <button 
+                  <button
                     onClick={() => { setData(null); setCurrentSlide(0); }}
                     className="bg-white text-black font-black uppercase tracking-widest px-8 py-4 rounded-full hover:scale-105 transition-transform"
                   >
