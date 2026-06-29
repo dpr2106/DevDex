@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://img.shields.io/badge/License-MIT-blue" alt="License" />
+  <img src="https://img.shields.io/badge/License-Proprietary-red" alt="License" />
   <img src="https://img.shields.io/badge/Next.js-14-black" alt="Next.js" />
   <img src="https://img.shields.io/badge/FastAPI-Python-teal" alt="FastAPI" />
   <br />
@@ -41,53 +41,10 @@
 - **Database / Cache:** [Supabase](https://supabase.com/) (PostgreSQL)
 - **APIs:** GitHub REST API
 
-## 🚀 Getting Started
-
-### Prerequisites
-Make sure you have Node.js, Python 3.9+, and a Supabase account set up. You will also need API keys from Groq and GitHub.
-
-### 1. Clone the repository
-```bash
-git clone https://github.com/dpr2106/GitScopeAI.git
-cd GitScopeAI
-```
-
-### 2. Backend Setup
-Navigate to the backend directory, set up your virtual environment, and start the FastAPI server.
-
-```bash
-cd backend
-python -m venv venv
-source venv/bin/activate  # On Windows use: .\venv\Scripts\activate
-pip install -r requirements.txt
-```
-
-Create a `.env` file in the `backend` directory:
-```env
-GITHUB_TOKEN=your_github_personal_access_token
-GROQ_API_KEY=your_groq_api_key
-SUPABASE_URL=your_supabase_url
-SUPABASE_KEY=your_supabase_anon_key
-```
-
-Run the backend server:
-```bash
-uvicorn main:app --reload --port 8000
-```
-
-### 3. Frontend Setup
-Navigate to the frontend directory, install dependencies, and start the Next.js development server.
-
-```bash
-cd ../frontend
-npm install
-npm run dev
-```
-
-The application will be available at `http://localhost:3000`.
-
 ## 🎨 Design Philosophy
 GitScope AI was designed with a "dark mode by default" philosophy, utilizing heavy glassmorphism, vibrant neon accents, and smooth micro-animations. It feels premium, responsive, and alive, treating the developer's data with the respect it deserves.
 
-## 📝 License
-This project is licensed under the MIT License.
+## 📝 Copyright
+&copy; 2026 Prashanth. All Rights Reserved. 
+
+This is a closed-source personal project. Unauthorized copying, distribution, or modification of this repository is strictly prohibited.
