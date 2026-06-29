@@ -1,27 +1,94 @@
-# 🧬 GitScope AI
-
-GitScope AI has evolved from a simple global leaderboard into a **Steroid-Injected Developer Profiling Tool**. Enter any GitHub username and instantly generate a deep architectural profile and recruiter assessment.
-
-### 🍱 The "Color Bento Box" Dashboard
-We ripped out the old tabbed interface and neon purple glows. Welcome to the sleek, ultra-modern **Color Bento Box**. Eight distinct, beautifully glassmorphic cards seamlessly displaying a developer's entire profile at a glance.
-* Zero clicks needed.
-* Ambient blurred orbs.
-* Crystal clear data presentation.
-
-### 🟩 Classic Contribution Heatmap
-We brought back the iconic GitHub green squares! Integrated a massive, full-width Contribution Graph at the bottom of the dashboard that perfectly mimics GitHub's native dark-mode heatmap. 
-
-### ⚔️ 1v1 Developer Comparison On Analysis Of AI
-Want to settle a score? Our new **Developer Kombat** mode pits two developers against each other in a ruthless AI analysis of their codebase, complexity, and commit habits. 
-* Split-screen VS layout with glowing particle effects
-* Power Level calculations with dynamic counter
-* Crash-proof architecture ensuring massive GitHub profiles are minified properly before judging!
-
-### 📄 AI Resume Generator (Export to PDF)
-Turn your GitHub profile into a sleek, professional 1-page CV instantly!
-* Clean A4 Layout optimized for `@media print`.
-* Dynamic visual charts including a **Developer DNA Radar Chart** and **GitHub Commit Heatmap**.
-* Highlight your AI-determined core strengths, notable projects, and tech stack perfectly for recruiters.
+<div align="center">
+  <img src="https://img.shields.io/badge/Status-Complete-success" alt="Status" />
+  <img src="https://img.shields.io/badge/License-MIT-blue" alt="License" />
+  <img src="https://img.shields.io/badge/Next.js-14-black" alt="Next.js" />
+  <img src="https://img.shields.io/badge/FastAPI-Python-teal" alt="FastAPI" />
+  <br />
+  <br />
+  <h1>🚀 GitScope AI</h1>
+  <h3>Understand Developers. Instantly.</h3>
+  <p>An AI-powered intelligence platform that analyzes GitHub profiles to generate tailored resumes, mock technical interviews, career timelines, and open-source matchmaking.</p>
+</div>
 
 ---
-*Built with Next.js, FastAPI, Supabase, Python and Groq.*
+
+## 🌟 Overview
+
+**GitScope AI** is a highly interactive, beautifully designed platform built to transform how developers showcase their skills and how recruiters find talent. Instead of manually reading through hundreds of repositories, simply enter a GitHub username. GitScope AI instantly aggregates their commit history, repository complexity, and language distribution, feeding it into a powerful LLM to generate deep, actionable insights.
+
+## ✨ Features
+
+- 📄 **AI Resume Builder:** Automatically generates a professional, recruiter-ready resume based on a developer's GitHub commits, pull requests, and top projects. Exportable to PDF.
+- 🤝 **OSS Matchmaker:** Acts as a Principal Tech Lead to recommend three active open-source projects perfectly tailored to the developer's tech stack and coding style.
+- 🎯 **Tailored Interview Generator:** Analyzes the developer's actual codebase to generate hyper-specific, brutal technical interview questions that they should know how to answer.
+- 📈 **Career Trajectory Timeline:** Uses historical commit data to plot the developer's growth from Junior to Senior, predicting their next career milestone.
+- 🩺 **Repo Health Scanner:** Scans public repositories to find code smells, security vulnerabilities, and architectural bottlenecks, providing actionable AI feedback.
+- ⚔️ **Battle Mode:** Pit two developers against each other in a fun, AI-judged comparison to see who has the cleaner code, better velocity, and higher impact.
+- 👥 **Squad Mode:** Build the ultimate engineering team by adding multiple developers and letting AI assign them roles (e.g., Tech Lead, DevOps, Frontend Maestro).
+- 🔥 **GitHub Wrapped:** A vibrant, Spotify-style year-in-review that playfully roasts a developer's coding habits, most used languages, and work-life balance.
+
+## 🛠️ Tech Stack
+
+### Frontend
+- **Framework:** [Next.js 14](https://nextjs.org/) (App Router)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+- **Animations:** [Framer Motion](https://www.framer.com/motion/)
+- **Charts:** [Recharts](https://recharts.org/) & React GitHub Calendar
+- **Icons:** [Lucide React](https://lucide.dev/)
+
+### Backend
+- **Framework:** [FastAPI](https://fastapi.tiangolo.com/) (Python)
+- **AI/LLM:** [Groq](https://groq.com/) (LLaMA 3.1 8B Instant)
+- **Database / Cache:** [Supabase](https://supabase.com/) (PostgreSQL)
+- **APIs:** GitHub REST API
+
+## 🚀 Getting Started
+
+### Prerequisites
+Make sure you have Node.js, Python 3.9+, and a Supabase account set up. You will also need API keys from Groq and GitHub.
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/dpr2106/GitScopeAI.git
+cd GitScopeAI
+```
+
+### 2. Backend Setup
+Navigate to the backend directory, set up your virtual environment, and start the FastAPI server.
+
+```bash
+cd backend
+python -m venv venv
+source venv/bin/activate  # On Windows use: .\venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+Create a `.env` file in the `backend` directory:
+```env
+GITHUB_TOKEN=your_github_personal_access_token
+GROQ_API_KEY=your_groq_api_key
+SUPABASE_URL=your_supabase_url
+SUPABASE_KEY=your_supabase_anon_key
+```
+
+Run the backend server:
+```bash
+uvicorn main:app --reload --port 8000
+```
+
+### 3. Frontend Setup
+Navigate to the frontend directory, install dependencies, and start the Next.js development server.
+
+```bash
+cd ../frontend
+npm install
+npm run dev
+```
+
+The application will be available at `http://localhost:3000`.
+
+## 🎨 Design Philosophy
+GitScope AI was designed with a "dark mode by default" philosophy, utilizing heavy glassmorphism, vibrant neon accents, and smooth micro-animations. It feels premium, responsive, and alive, treating the developer's data with the respect it deserves.
+
+## 📝 License
+This project is licensed under the MIT License.
