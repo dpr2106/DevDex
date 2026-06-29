@@ -98,44 +98,44 @@ export default function Home() {
           <span className="text-lg font-bold tracking-tight text-white hidden sm:block">GitScope AI</span>
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3 overflow-x-auto custom-scrollbar pb-2 md:pb-0">
           {data && (
             <>
-              <form onSubmit={analyzeProfile} className="hidden md:flex items-center bg-white/[0.03] border border-white/10 rounded-lg px-4 py-2 w-80 focus-within:border-purple-500/50 focus-within:shadow-[0_0_15px_rgba(168,85,247,0.2)] transition-all">
-                <Search className="w-4 h-4 text-purple-400 mr-3" />
+              <form onSubmit={analyzeProfile} className="hidden lg:flex items-center bg-white/[0.03] border border-white/10 rounded-xl px-4 py-2 w-64 focus-within:border-purple-500/50 focus-within:shadow-[0_0_15px_rgba(168,85,247,0.2)] transition-all">
+                <Search className="w-3 h-3 text-purple-400 mr-2" />
                 <input
                   type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  placeholder="Search another developer..."
-                  className="bg-transparent border-none text-sm text-white focus:outline-none w-full placeholder:text-neutral-600"
+                  placeholder="Search developer..."
+                  className="bg-transparent border-none text-xs text-white focus:outline-none w-full placeholder:text-neutral-600"
                 />
               </form>
-              <Link href={`/resume/${data.github_username || data.raw_profile?.login || username}`} target="_blank" className="flex items-center gap-2 bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white font-black uppercase tracking-widest rounded-xl px-4 py-2 transition-all text-xs shadow-[0_0_15px_rgba(16,185,129,0.4)] hover:shadow-[0_0_25px_rgba(16,185,129,0.6)] transform hover:scale-105">
-                📄 Export Resume
+              <Link href={`/resume/${data.github_username || data.raw_profile?.login || username}`} target="_blank" className="flex items-center gap-2 bg-white/5 hover:bg-emerald-500/10 border border-white/10 hover:border-emerald-500/50 text-neutral-300 hover:text-emerald-300 font-bold uppercase tracking-widest rounded-xl px-3 py-2 transition-all text-[10px] backdrop-blur-md hover:shadow-[0_0_15px_rgba(16,185,129,0.3)] whitespace-nowrap">
+                📄 Export
               </Link>
             </>
           )}
-          <Link href="/wrapped" className="flex items-center gap-2 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-400 hover:to-rose-400 text-white font-black uppercase tracking-widest rounded-xl px-4 py-2 transition-all text-xs shadow-[0_0_15px_rgba(236,72,153,0.4)] hover:shadow-[0_0_25px_rgba(236,72,153,0.6)] transform hover:scale-105">
-            <Flame className="w-4 h-4" /> Wrapped
+          <Link href="/wrapped" className="flex items-center gap-2 bg-white/5 hover:bg-pink-500/10 border border-white/10 hover:border-pink-500/50 text-neutral-300 hover:text-pink-300 font-bold uppercase tracking-widest rounded-xl px-3 py-2 transition-all text-[10px] backdrop-blur-md hover:shadow-[0_0_15px_rgba(236,72,153,0.3)] whitespace-nowrap">
+            <Flame className="w-3 h-3 text-pink-400" /> Wrapped
           </Link>
-          <Link href="/matchmaker" className="flex items-center gap-2 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-400 hover:to-amber-400 text-white font-black uppercase tracking-widest rounded-xl px-4 py-2 transition-all text-xs shadow-[0_0_15px_rgba(249,115,22,0.4)] hover:shadow-[0_0_25px_rgba(249,115,22,0.6)] transform hover:scale-105">
-            <Users className="w-4 h-4" /> OSS Matchmaker
+          <Link href="/matchmaker" className="flex items-center gap-2 bg-white/5 hover:bg-orange-500/10 border border-white/10 hover:border-orange-500/50 text-neutral-300 hover:text-orange-300 font-bold uppercase tracking-widest rounded-xl px-3 py-2 transition-all text-[10px] backdrop-blur-md hover:shadow-[0_0_15px_rgba(249,115,22,0.3)] whitespace-nowrap">
+            <Users className="w-3 h-3 text-orange-400" /> Matchmaker
           </Link>
-          <Link href="/interview" className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-black uppercase tracking-widest rounded-xl px-4 py-2 transition-all text-xs shadow-[0_0_15px_rgba(59,130,246,0.4)] hover:shadow-[0_0_25px_rgba(59,130,246,0.6)] transform hover:scale-105">
-            <Code2 className="w-4 h-4" /> Tech Interview
+          <Link href="/interview" className="flex items-center gap-2 bg-white/5 hover:bg-cyan-500/10 border border-white/10 hover:border-cyan-500/50 text-neutral-300 hover:text-cyan-300 font-bold uppercase tracking-widest rounded-xl px-3 py-2 transition-all text-[10px] backdrop-blur-md hover:shadow-[0_0_15px_rgba(6,182,212,0.3)] whitespace-nowrap">
+            <Code2 className="w-3 h-3 text-cyan-400" /> Interview
           </Link>
-          <Link href="/trajectory" className="flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-500 hover:from-purple-500 hover:to-pink-400 text-white font-black uppercase tracking-widest rounded-xl px-4 py-2 transition-all text-xs shadow-[0_0_15px_rgba(168,85,247,0.4)] hover:shadow-[0_0_25px_rgba(168,85,247,0.6)] transform hover:scale-105">
-            <LineChart className="w-4 h-4" /> Career Timeline
+          <Link href="/trajectory" className="flex items-center gap-2 bg-white/5 hover:bg-purple-500/10 border border-white/10 hover:border-purple-500/50 text-neutral-300 hover:text-purple-300 font-bold uppercase tracking-widest rounded-xl px-3 py-2 transition-all text-[10px] backdrop-blur-md hover:shadow-[0_0_15px_rgba(168,85,247,0.3)] whitespace-nowrap">
+            <LineChart className="w-3 h-3 text-purple-400" /> Timeline
           </Link>
-          <Link href="/repo-health" className="flex items-center gap-2 bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white font-black uppercase tracking-widest rounded-xl px-4 py-2 transition-all text-xs shadow-[0_0_15px_rgba(16,185,129,0.4)] hover:shadow-[0_0_25px_rgba(16,185,129,0.6)] transform hover:scale-105">
-            <Activity className="w-4 h-4" /> Repo Health
+          <Link href="/repo-health" className="flex items-center gap-2 bg-white/5 hover:bg-emerald-500/10 border border-white/10 hover:border-emerald-500/50 text-neutral-300 hover:text-emerald-300 font-bold uppercase tracking-widest rounded-xl px-3 py-2 transition-all text-[10px] backdrop-blur-md hover:shadow-[0_0_15px_rgba(16,185,129,0.3)] whitespace-nowrap">
+            <Activity className="w-3 h-3 text-emerald-400" /> Health
           </Link>
-          <Link href="/squad" className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-500 hover:from-blue-500 hover:to-indigo-400 text-white font-black uppercase tracking-widest rounded-xl px-4 py-2 transition-all text-xs shadow-[0_0_15px_rgba(59,130,246,0.4)] hover:shadow-[0_0_25px_rgba(59,130,246,0.6)] transform hover:scale-105">
-            <Users className="w-4 h-4" /> Squad Mode
+          <Link href="/squad" className="flex items-center gap-2 bg-white/5 hover:bg-indigo-500/10 border border-white/10 hover:border-indigo-500/50 text-neutral-300 hover:text-indigo-300 font-bold uppercase tracking-widest rounded-xl px-3 py-2 transition-all text-[10px] backdrop-blur-md hover:shadow-[0_0_15px_rgba(99,102,241,0.3)] whitespace-nowrap">
+            <Users className="w-3 h-3 text-indigo-400" /> Squad
           </Link>
-          <Link href="/battle" className="flex items-center gap-2 bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-500 hover:to-orange-400 text-white font-black uppercase tracking-widest rounded-xl px-4 py-2 transition-all text-xs shadow-[0_0_15px_rgba(239,68,68,0.4)] hover:shadow-[0_0_25px_rgba(239,68,68,0.6)] transform hover:scale-105">
-            <Swords className="w-4 h-4" /> Battle Mode
+          <Link href="/battle" className="flex items-center gap-2 bg-white/5 hover:bg-red-500/10 border border-white/10 hover:border-red-500/50 text-neutral-300 hover:text-red-300 font-bold uppercase tracking-widest rounded-xl px-3 py-2 transition-all text-[10px] backdrop-blur-md hover:shadow-[0_0_15px_rgba(239,68,68,0.3)] whitespace-nowrap">
+            <Swords className="w-3 h-3 text-red-400" /> Battle
           </Link>
         </div>
       </header>
