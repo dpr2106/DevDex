@@ -24,7 +24,7 @@ export default function CareerTrajectory() {
     setData(null);
 
     try {
-      const response = await fetch(`http://localhost:8000/api/trajectory`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"}/api/trajectory`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username: username.trim() })

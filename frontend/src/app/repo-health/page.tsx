@@ -24,7 +24,7 @@ export default function RepoHealth() {
     setData(null);
 
     try {
-      const response = await fetch(`http://localhost:8000/api/repo-health`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"}/api/repo-health`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ repo_path: repoPath.trim() })

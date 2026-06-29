@@ -61,7 +61,7 @@ export default function ResumePage() {
     setShowATSModal(true);
     const resumeText = `${builderData.fullName} ${builderData.role} ${builderData.summary} ${builderData.skills} ${customExp} ${customEdu}`;
     try {
-      const response = await fetch("http://localhost:8000/api/ats-score", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"}/api/ats-score`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ resume_text: resumeText, target_role: builderData.role })
@@ -81,7 +81,7 @@ export default function ResumePage() {
     if (!coverLetterCompany || !coverLetterTargetRole) return;
     setGeneratingCoverLetter(true);
     try {
-      const response = await fetch("http://localhost:8000/api/cover-letter", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"}/api/cover-letter`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -105,7 +105,7 @@ export default function ResumePage() {
     if (!text) return;
     setLoad(true);
     try {
-      const response = await fetch("http://localhost:8000/api/enhance", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"}/api/enhance`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ text, section })
@@ -124,7 +124,7 @@ export default function ResumePage() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch(`http://localhost:8000/api/analyze/${username}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"}/api/analyze/${username}`);
         if (!response.ok) throw new Error("Could not fetch profile.");
         const result = await response.json();
         setData(result);

@@ -45,7 +45,7 @@ export default function Home() {
     setData(null);
 
     try {
-      const response = await fetch(`http://localhost:8000/api/analyze/${username}`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"}/api/analyze/${username}`);
       if (!response.ok) throw new Error("Could not fetch or analyze this profile.");
       const result = await response.json();
       

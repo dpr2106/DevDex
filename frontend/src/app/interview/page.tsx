@@ -26,7 +26,7 @@ export default function TailoredInterview() {
     setExpandedQ(null);
 
     try {
-      const response = await fetch(`http://localhost:8000/api/interview`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"}/api/interview`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username: username.trim() })
