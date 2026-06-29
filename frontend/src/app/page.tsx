@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Search, Activity, Code, Star, Trophy, GitCommit, Terminal, Target, LineChart, BrainCircuit, BarChart3, ChevronRight, Flame, Swords, Users } from "lucide-react";
+import { Search, Activity, Code, Code2, Star, Trophy, GitCommit, Terminal, Target, LineChart, BrainCircuit, BarChart3, ChevronRight, Flame, Swords, Users } from "lucide-react";
 import { motion, AnimatePresence, useMotionValue, useSpring } from "framer-motion";
 import Link from "next/link";
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, Tooltip, ResponsiveContainer } from "recharts";
